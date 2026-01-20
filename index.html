@@ -5876,15 +5876,15 @@
                     </div>
                     <div class="hero-stats">
                         <div class="stat-card">
-                            <div class="stat-number">12</div>
+                            <div class="stat-number">8</div>
                             <div class="stat-label">Horas</div>
                         </div>
                         <div class="stat-card">
-                            <div class="stat-number">4</div>
+                            <div class="stat-number">3</div>
                             <div class="stat-label">Semanas</div>
                         </div>
                         <div class="stat-card">
-                            <div class="stat-number">6</div>
+                            <div class="stat-number">4</div>
                             <div class="stat-label">Sesiones</div>
                         </div>
                     </div>
@@ -5962,655 +5962,698 @@
 
             <div class="syllabus-inline-container" id="temario-detalle">
                 <div class="syllabus-inline-header">
-                    <h3>Syllabus Detallado (4 Sesiones)</h3>
+                    <div class="section-badge" style="margin-bottom: 15px;">📚 HOJA DE RUTA</div>
+                    <h3>Estructura Académica por Semana</h3>
+                    <p style="color: var(--gris-medio); margin-top: 10px;">
+                        Distribución de los 8 módulos en 4 sesiones intensivas
+                    </p>
                 </div>
 
-                <div class="syllabus-grid-4" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+                <div class="table-responsive"
+                    style="box-shadow: 0 15px 40px rgba(0,0,0,0.08); border-radius: 20px; overflow: hidden; border: 1px solid rgba(0,0,0,0.05);">
+                    <table class="syllabus-table" style="width: 100%; min-width: 700px; border-collapse: collapse;">
+                        <thead>
+                            <tr style="background: var(--azul-petróleo); color: white; text-align: center;">
+                                <th style="padding: 20px; width: 15%; text-align: center;">Semana</th>
+                                <th style="padding: 20px; width: 15%; text-align: center;">Fecha</th>
+                                <th style="padding: 20px; width: 10%; text-align: center;">Sesión</th>
+                                <th style="padding: 20px; width: 60%; text-align: center;">Módulos y Temas Clave</th>
+                            </tr>
+                        </thead>
+                        <tbody style="background: white;">
 
-                    <div class="session-card week-1">
-                        <div class="session-badge">Semana 1 (Mié)</div>
-                        <h4 class="session-title">Fundamentos de N8n</h4>
-                        <p class="session-desc">Instalación (Docker/Desktop), recorrido por la interfaz, nodos básicos y
-                            primer flujo "Hello World".</p>
-                    </div>
+                            <tr style="border-bottom: 1px solid #eee; transition: background 0.3s;"
+                                onmouseover="this.style.background='#FFF9F0'"
+                                onmouseout="this.style.background='white'">
+                                <td
+                                    style="padding: 20px; font-weight: 800; color: var(--naranja-oscuro); text-align: center;">
+                                    Semana 1</td>
+                                <td
+                                    style="padding: 20px; font-weight: 600; color: var(--gris-oscuro); text-align: center;">
+                                    Mié 28 Ene</td>
+                                <td style="padding: 20px; text-align: center;">
+                                    <span
+                                        style="background: var(--naranja-muy-claro); color: var(--naranja-principal); padding: 5px 12px; border-radius: 50px; font-weight: 800; font-size: 13px;">S1</span>
+                                </td>
+                                <td style="padding: 20px;">
+                                    <div style="font-weight: 700; color: var(--azul-petróleo); margin-bottom: 5px;">
+                                        Módulos 1 y 2: Productividad & Integración</div>
+                                    <ul
+                                        style="margin: 0; padding-left: 20px; color: var(--gris-medio); font-size: 14px; line-height: 1.6;">
+                                        <li>n8n Empresarial: Patrones (Event/Batch) y Casos reales (Banca/Retail).</li>
+                                        <li>Conectividad: APIs REST, Auth (OAuth2/JWT) y Bases de Datos (SQL).</li>
+                                    </ul>
+                                </td>
+                            </tr>
 
-                    <div class="session-card week-2">
-                        <div class="session-badge" style="background:#E6F7F5; color:#00A896;">Semana 2 (Lun)</div>
-                        <h4 class="session-title">Conectividad y Lógica</h4>
-                        <p class="session-desc">Consumo de APIs REST, Webhooks, transformación de datos JSON y
-                            estructuras de control (If, Switch).</p>
-                    </div>
+                            <tr style="border-bottom: 1px solid #eee; transition: background 0.3s;"
+                                onmouseover="this.style.background='#F0FAFF'"
+                                onmouseout="this.style.background='white'">
+                                <td rowspan="2"
+                                    style="padding: 20px; font-weight: 800; color: var(--azul-principal); border-right: 2px solid #f0f0f0; text-align: center; vertical-align: middle;">
+                                    Semana 2</td>
+                                <td
+                                    style="padding: 20px; font-weight: 600; color: var(--gris-oscuro); text-align: center;">
+                                    Lun 02 Feb</td>
+                                <td style="padding: 20px; text-align: center;">
+                                    <span
+                                        style="background: var(--azul-muy-claro); color: var(--azul-principal); padding: 5px 12px; border-radius: 50px; font-weight: 800; font-size: 13px;">S2</span>
+                                </td>
+                                <td style="padding: 20px;">
+                                    <div style="font-weight: 700; color: var(--azul-petróleo); margin-bottom: 5px;">
+                                        Módulos 3 y 4: Cloud & DevOps</div>
+                                    <ul
+                                        style="margin: 0; padding-left: 20px; color: var(--gris-medio); font-size: 14px; line-height: 1.6;">
+                                        <li>Cloud Híbrido: Orquestación con AWS Lambda y Amazon S3.</li>
+                                        <li>Operaciones: Diseño mantenible, Sub-workflows, Logs y Manejo de errores.
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
 
-                    <div class="session-card week-2">
-                        <div class="session-badge" style="background:#E6F7F5; color:#00A896;">Semana 2 (Mié)</div>
-                        <h4 class="session-title">Automatización Avanzada</h4>
-                        <p class="session-desc">Manejo de errores, bucles complejos, variables de entorno y conexión con
-                            Google Sheets/Drive.</p>
-                    </div>
+                            <tr style="border-bottom: 1px solid #eee; transition: background 0.3s;"
+                                onmouseover="this.style.background='#F0FAFF'"
+                                onmouseout="this.style.background='white'">
+                                <td
+                                    style="padding: 20px; font-weight: 600; color: var(--gris-oscuro); text-align: center;">
+                                    Mié 04 Feb</td>
+                                <td style="padding: 20px; text-align: center;">
+                                    <span
+                                        style="background: var(--azul-muy-claro); color: var(--azul-principal); padding: 5px 12px; border-radius: 50px; font-weight: 800; font-size: 13px;">S3</span>
+                                </td>
+                                <td style="padding: 20px;">
+                                    <div style="font-weight: 700; color: var(--azul-petróleo); margin-bottom: 5px;">
+                                        Módulos 5 y 6: IA Generativa & RAG</div>
+                                    <ul
+                                        style="margin: 0; padding-left: 20px; color: var(--gris-medio); font-size: 14px; line-height: 1.6;">
+                                        <li>GPT en Producción: Prompt Engineering de negocio y Salidas JSON.</li>
+                                        <li>RAG Corporativo: Arquitectura de conocimiento y Contexto seguro.</li>
+                                    </ul>
+                                </td>
+                            </tr>
 
-                    <div class="session-card week-2">
-                        <div class="session-badge" style="background:#FFF4E6; color:#E87020;">Semana 3 (Lun)</div>
-                        <h4 class="session-title">Intro a GenAI y RAG</h4>
-                        <p class="session-desc">Conceptos clave: LLMs, Embeddings y configuración de Bases de Datos
-                            Vectoriales en N8n.</p>
-                    </div>
+                            <tr style="transition: background 0.3s;" onmouseover="this.style.background='#F3F0FF'"
+                                onmouseout="this.style.background='white'">
+                                <td style="padding: 20px; font-weight: 800; color: var(--violeta); text-align: center;">
+                                    Semana 3</td>
+                                <td
+                                    style="padding: 20px; font-weight: 600; color: var(--gris-oscuro); text-align: center;">
+                                    Lun 09 Feb</td>
+                                <td style="padding: 20px; text-align: center;">
+                                    <span
+                                        style="background: #E3F2FD; color: var(--violeta); padding: 5px 12px; border-radius: 50px; font-weight: 800; font-size: 13px;">S4</span>
+                                </td>
+                                <td style="padding: 20px;">
+                                    <div style="font-weight: 700; color: var(--azul-petróleo); margin-bottom: 5px;">
+                                        Módulos 7 y 8: Agentes & Estrategia</div>
+                                    <ul
+                                        style="margin: 0; padding-left: 20px; color: var(--gris-medio); font-size: 14px; line-height: 1.6;">
+                                        <li>Agentes Autónomos: Integración WhatsApp (Meta/Twilio) y Webhooks.</li>
+                                        <li>Taller Final: Análisis de riesgo, Costos y Decisión tecnológica (n8n vs
+                                            Código).</li>
+                                    </ul>
+                                </td>
+                            </tr>
 
-                    <div class="session-card week-2">
-                        <div class="session-badge" style="background:#FFF4E6; color:#E87020;">Semana 3 (Mié)</div>
-                        <h4 class="session-title">Agentes de IA</h4>
-                        <p class="session-desc">Configuración del nodo AI Agent, uso de herramientas (Tools) y memoria
-                            conversacional.</p>
-                    </div>
-
-                    <div class="session-card week-2">
-                        <div class="session-badge" style="background:#E3F2FD; color:#1565C0;">Semana 4 (Lun)</div>
-                        <h4 class="session-title">Proyecto Final</h4>
-                        <p class="session-desc">Construcción del chatbot RAG completo: Carga de PDF, vectorización y
-                            despliegue final.</p>
-                    </div>
+                        </tbody>
+                    </table>
                 </div>
+
+
             </div>
-        </section>
+    </div>
+    </section>
 
-        <!-- SCHEDULE SECTION -->
-        <section class="schedule-section" id="schedule">
+    <!-- SCHEDULE SECTION -->
+    <section class="schedule-section" id="schedule">
+        <div class="section-header">
+            <div class="section-badge">📅 FEBRERO - MARZO 2026</div>
+            <h2 class="section-title">Programación de Clases</h2>
+            <p class="section-description">Horario: Lunes y Miércoles | 2 horas por sesión</p>
+        </div>
+
+        <div class="schedule-container">
+            <div class="schedule-tabs">
+                <button class="tab-button active" onclick="showSchedule('semana1')">
+                    Semana 1<br><small>28 Ene - 01 Feb</small>
+                </button>
+                <button class="tab-button" onclick="showSchedule('semana2')">
+                    Semana 2<br><small>02 Feb - 08 Feb</small>
+                </button>
+                <button class="tab-button" onclick="showSchedule('semana3')">
+                    Semana 3<br><small>09 Feb - 15 Feb</small>
+                </button>
+            </div>
+
+            <div class="schedule-wrapper">
+
+                <div class="schedule-content active" id="semana1Schedule">
+                    <div class="schedule-header" style="background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);">
+                        <div class="schedule-icon"><i class="fa-solid fa-play" style="color: white;"></i></div>
+                        <div>SESIÓN 1: PRODUCTIVIDAD & CONECTIVIDAD</div>
+                    </div>
+                    <div class="schedule-table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Hora</th>
+                                    <th>Miércoles 28 Ene</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="time-cell">6:30pm - 8:30pm</td>
+                                    <td>
+                                        <span class="class-badge csharp" style="background: #FF6B6B;">Sesión
+                                            1</span>
+                                        <div style="font-size:12px; margin-top:5px; line-height:1.4;">
+                                            n8n Empresarial<br>APIs REST & Auth
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="schedule-content" id="semana2Schedule">
+                    <div class="schedule-header" style="background: linear-gradient(135deg, #FF9F43 0%, #FECA57 100%);">
+                        <div class="schedule-icon"><i class="fa-solid fa-share-nodes" style="color: white;"></i>
+                        </div>
+                        <div>SESIONES 2 y 3: DATA OPS & IA</div>
+                    </div>
+                    <div class="schedule-table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Hora</th>
+                                    <th>Lunes 02 Feb</th>
+                                    <th>Miércoles 04 Feb</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="time-cell">6:30pm - 8:30pm</td>
+                                    <td>
+                                        <span class="class-badge csharp" style="background: #FF9F43;">Sesión
+                                            2</span>
+                                        <div style="font-size:12px; margin-top:5px; line-height:1.4;">
+                                            Bases de Datos<br>AWS Lambda & S3
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="class-badge csharp" style="background: #00A896;">Sesión
+                                            3</span>
+                                        <div style="font-size:12px; margin-top:5px; line-height:1.4;">
+                                            GPT & JSON<br>RAG Corporativo
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="schedule-content" id="semana3Schedule">
+                    <div class="schedule-header" style="background: linear-gradient(135deg, #2E86DE 0%, #54A0FF 100%);">
+                        <div class="schedule-icon"><i class="fa-solid fa-flag-checkered" style="color: white;"></i>
+                        </div>
+                        <div>SESIÓN 4: AGENTES & ESTRATEGIA</div>
+                    </div>
+                    <div class="schedule-table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Hora</th>
+                                    <th>Lunes 09 Feb (Final)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="time-cell">6:30pm - 8:30pm</td>
+                                    <td>
+                                        <span class="class-badge sql" style="background: #2E86DE;">Sesión 4</span>
+                                        <div style="font-size:12px; margin-top:5px; line-height:1.4;">
+                                            Agentes WhatsApp<br>Taller Decisión
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- CLASES EN VIVO CARD (PÁGINA PRINCIPAL) -->
+    <section class="clases-vivo-preview-section" id="clases-vivo">
+        <div class="clases-vivo-preview-container">
             <div class="section-header">
-                <div class="section-badge">📅 FEBRERO - MARZO 2026</div>
-                <h2 class="section-title">Programación de Clases</h2>
-                <p class="section-description">Horario: Lunes y Miércoles | 2 horas por sesión</p>
+                <div class="section-badge">🎥 ACCESO DIRECTO</div>
+                <h2 class="section-title">Clases en Vivo</h2>
+                <p class="section-description">
+                    Accede a las transmisiones en tiempo real de todas tus clases. Los enlaces se actualizan
+                    automáticamente desde el calendario oficial.
+                </p>
             </div>
 
-            <div class="schedule-container">
-                <div class="schedule-tabs">
-                    <button class="tab-button active" onclick="showSchedule('semana1')">
-                        Semana 1<br><small>28 Ene - 01 Feb</small>
-                    </button>
-                    <button class="tab-button" onclick="showSchedule('semana2')">
-                        Semana 2<br><small>02 Feb - 08 Feb</small>
-                    </button>
-                    <button class="tab-button" onclick="showSchedule('semana3')">
-                        Semana 3<br><small>09 Feb - 15 Feb</small>
-                    </button>
-                    <button class="tab-button" onclick="showSchedule('semana4')">
-                        Semana 4<br><small>16 Feb - 22 Feb</small>
-                    </button>
+            <div class="clases-vivo-preview-card" onclick="showDetail('clases-vivo')">
+                <div class="preview-icon-large">
+                    <div class="preview-icon-bg">🎥</div>
                 </div>
-
-                <div class="schedule-wrapper">
-
-                    <div class="schedule-content active" id="semana1Schedule">
-                        <div class="schedule-header"
-                            style="background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);">
-                            <div class="schedule-icon"><i class="fa-solid fa-play" style="color: white;"></i></div>
-                            <div>INICIO DEL PROGRAMA</div>
-                        </div>
-                        <div class="schedule-table-wrapper">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Hora</th>
-                                        <th>Lunes</th>
-                                        <th>Miércoles 28 Ene</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="time-cell">6:30pm - 8:30pm</td>
-                                        <td style="background: #f9f9f9; color: #999;">-</td>
-                                        <td>
-                                            <span class="class-badge csharp" style="background: #FF6B6B;">Sesión
-                                                1</span>
-                                            <div style="font-size:12px; margin-top:5px;">Fundamentos N8n</div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div class="schedule-content" id="semana2Schedule">
-                        <div class="schedule-header"
-                            style="background: linear-gradient(135deg, #FF9F43 0%, #FECA57 100%);">
-                            <div class="schedule-icon"><i class="fa-solid fa-share-nodes" style="color: white;"></i>
-                            </div>
-                            <div>AUTOMATIZACIÓN & LÓGICA</div>
-                        </div>
-                        <div class="schedule-table-wrapper">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Hora</th>
-                                        <th>Lunes 02 Feb</th>
-                                        <th>Miércoles 04 Feb</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="time-cell">6:30pm - 8:30pm</td>
-                                        <td>
-                                            <span class="class-badge csharp" style="background: #FF9F43;">Sesión
-                                                2</span>
-                                            <div style="font-size:12px; margin-top:5px;">Conectividad</div>
-                                        </td>
-                                        <td>
-                                            <span class="class-badge csharp" style="background: #FF9F43;">Sesión
-                                                3</span>
-                                            <div style="font-size:12px; margin-top:5px;">Lógica Avanzada</div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div class="schedule-content" id="semana3Schedule">
-                        <div class="schedule-header"
-                            style="background: linear-gradient(135deg, #00A896 0%, #4ECDC4 100%);">
-                            <div class="schedule-icon"><i class="fa-solid fa-brain" style="color: white;"></i></div>
-                            <div>GEN_AI & VECTORES</div>
-                        </div>
-                        <div class="schedule-table-wrapper">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Hora</th>
-                                        <th>Lunes 09 Feb</th>
-                                        <th>Miércoles 11 Feb</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="time-cell">6:30pm - 8:30pm</td>
-                                        <td>
-                                            <span class="class-badge sql" style="background: #00A896;">Sesión 4</span>
-                                            <div style="font-size:12px; margin-top:5px;">Intro RAG</div>
-                                        </td>
-                                        <td>
-                                            <span class="class-badge sql" style="background: #00A896;">Sesión 5</span>
-                                            <div style="font-size:12px; margin-top:5px;">AI Agents</div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div class="schedule-content" id="semana4Schedule">
-                        <div class="schedule-header"
-                            style="background: linear-gradient(135deg, #2E86DE 0%, #54A0FF 100%);">
-                            <div class="schedule-icon"><i class="fa-solid fa-flag-checkered" style="color: white;"></i>
-                            </div>
-                            <div>CIERRE DE PROYECTO</div>
-                        </div>
-                        <div class="schedule-table-wrapper">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Hora</th>
-                                        <th>Lunes 16 Feb (Final)</th>
-                                        <th>Miércoles</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="time-cell">6:30pm - 8:30pm</td>
-                                        <td>
-                                            <span class="class-badge sql" style="background: #2E86DE;">Sesión 6</span>
-                                            <div style="font-size:12px; margin-top:5px;">Chatbot Final</div>
-                                        </td>
-                                        <td style="background: #f9f9f9; color: #999;">-</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-        </section>
-
-
-        <!-- CLASES EN VIVO CARD (PÁGINA PRINCIPAL) -->
-        <section class="clases-vivo-preview-section" id="clases-vivo">
-            <div class="clases-vivo-preview-container">
-                <div class="section-header">
-                    <div class="section-badge">🎥 ACCESO DIRECTO</div>
-                    <h2 class="section-title">Clases en Vivo</h2>
-                    <p class="section-description">
-                        Accede a las transmisiones en tiempo real de todas tus clases. Los enlaces se actualizan
-                        automáticamente desde el calendario oficial.
+                <div class="preview-content">
+                    <h3 class="preview-title">Enlaces de Transmisión</h3>
+                    <p class="preview-description">
+                        Consulta los enlaces actualizados de Google Meet, Zoom o la plataforma que utilice tu
+                        instructor para cada sesión programada.
                     </p>
-                </div>
+                    <div class="preview-features">
 
-                <div class="clases-vivo-preview-card" onclick="showDetail('clases-vivo')">
-                    <div class="preview-icon-large">
-                        <div class="preview-icon-bg">🎥</div>
+                        <div class="preview-feature-item">
+                            <span class="preview-check">✓</span>
+                            <span>Acceso directo a cada clase programada</span>
+                        </div>
+                        <div class="preview-feature-item">
+                            <span class="preview-check">✓</span>
+                            <span>Información de fecha, hora y materia</span>
+                        </div>
                     </div>
-                    <div class="preview-content">
-                        <h3 class="preview-title">Enlaces de Transmisión</h3>
-                        <p class="preview-description">
-                            Consulta los enlaces actualizados de Google Meet, Zoom o la plataforma que utilice tu
-                            instructor para cada sesión programada.
-                        </p>
-                        <div class="preview-features">
-
-                            <div class="preview-feature-item">
-                                <span class="preview-check">✓</span>
-                                <span>Acceso directo a cada clase programada</span>
-                            </div>
-                            <div class="preview-feature-item">
-                                <span class="preview-check">✓</span>
-                                <span>Información de fecha, hora y materia</span>
-                            </div>
-                        </div>
-                        <div class="preview-cta">
-                            <span class="preview-btn">
-                                Ver todas las clases en vivo
-                                <span class="preview-arrow">→</span>
-                            </span>
-                        </div>
+                    <div class="preview-cta">
+                        <span class="preview-btn">
+                            Ver todas las clases en vivo
+                            <span class="preview-arrow">→</span>
+                        </span>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section class="instructors-section" id="instructors" style="background-color: #f8f9fa;">
+    <section class="instructors-section" id="instructors" style="background-color: #f8f9fa;">
+        <div class="section-header">
+            <div class="section-badge">👥 EL EQUIPO DOCENTE</div>
+            <h2 class="section-title">Instructores del Programa</h2>
+            <p class="section-description">Aprende con especialistas técnicos en cada área.</p>
+        </div>
+
+        <div class="instructors-grid-wrapper">
+
+            <div class="instructor-card-compact blue">
+                <div class="instructor-initials bg-blue">GM</div>
+                <h3 class="instructor-name-compact">Gustavo Moreno</h3>
+                <p class="instructor-role-compact">RAG Architect</p>
+                <span class="specialty-badge">
+                    <i class="fa-solid fa-layer-group"></i> Arquitectura de Datos
+                </span>
+            </div>
+
+            <div class="instructor-card-compact orange">
+                <div class="instructor-initials bg-orange">JS</div>
+                <h3 class="instructor-name-compact">Jean Smith Velasquez</h3>
+                <p class="instructor-role-compact">N8n & Automation</p>
+                <span class="specialty-badge">
+                    <i class="fa-solid fa-bolt"></i> Flujos Automatizados
+                </span>
+            </div>
+
+            <div class="instructor-card-compact teal">
+                <div class="instructor-initials bg-teal">JD</div>
+                <h3 class="instructor-name-compact">Juan Pablo David</h3>
+                <p class="instructor-role-compact">GenAI Expert</p>
+                <span class="specialty-badge">
+                    <i class="fa-solid fa-brain"></i> Modelos LLM
+                </span>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- SECCIÓN CRITERIOS DE EVALUACIÓN -->
+    <section class="evaluacion-section" id="evaluacion">
+        <div class="evaluacion-container">
             <div class="section-header">
-                <div class="section-badge">👥 EL EQUIPO DOCENTE</div>
-                <h2 class="section-title">Instructores del Programa</h2>
-                <p class="section-description">Aprende con especialistas técnicos en cada área.</p>
+                <div class="section-badge">📊 REQUISITOS</div>
+                <h2 class="section-title">Evaluación y Certificación</h2>
+                <p class="section-description">
+                    Este programa intensivo se aprueba cumpliendo con el requisito de asistencia.
+                </p>
             </div>
 
-            <div class="instructors-grid-wrapper">
+            <div class="evaluacion-grid">
 
-                <div class="instructor-card-compact blue">
-                    <div class="instructor-initials bg-blue">GM</div>
-                    <h3 class="instructor-name-compact">Gustavo Moreno</h3>
-                    <p class="instructor-role-compact">RAG Architect</p>
-                    <span class="specialty-badge">
-                        <i class="fa-solid fa-layer-group"></i> Arquitectura de Datos
-                    </span>
+                <div class="evaluacion-card asistencia-card" style="border-color: var(--naranja-brillante);">
+                    <div class="card-icon">
+                        <span class="icon-large">📅</span>
+                    </div>
+                    <h3 class="card-title">Asistencia Obligatoria</h3>
+                    <div class="card-content">
+                        <div class="alert-box warning">
+                            <span class="alert-icon">⚠️</span>
+                            <div class="alert-content">
+                                <strong>Único Requisito:</strong> Máximo <span class="highlight-number">1
+                                    inasistencia</span> permitida durante todo el programa.
+                            </div>
+                        </div>
+
+                        <div class="info-list" style="margin-top: 20px;">
+                            <div class="info-item">
+                                <span class="check-icon">✓</span>
+                                <span>Se toma asistencia al inicio de cada sesión en vivo.</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="check-icon">✓</span>
+                                <span>La puntualidad es fundamental para el registro.</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="check-icon">✓</span>
+                                <span>No hay entregas ni exámenes prácticos.</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="instructor-card-compact orange">
-                    <div class="instructor-initials bg-orange">JS</div>
-                    <h3 class="instructor-name-compact">Jean Smith Velasquez</h3>
-                    <p class="instructor-role-compact">N8n & Automation</p>
-                    <span class="specialty-badge">
-                        <i class="fa-solid fa-bolt"></i> Flujos Automatizados
-                    </span>
-                </div>
+                <div class="evaluacion-card certificacion-card">
+                    <div class="card-icon">
+                        <span class="icon-large">🎓</span>
+                    </div>
+                    <h3 class="card-title">Certificación</h3>
+                    <div class="card-content">
+                        <div class="cert-type cert-final"
+                            style="background: linear-gradient(135deg, var(--azul-muy-claro) 0%, var(--blanco) 100%); border: 2px solid var(--azul-principal);">
+                            <div class="cert-header">
+                                <span class="cert-icon">📜</span>
+                                <h4 style="color: var(--azul-petróleo);">Constancia de Participación</h4>
+                            </div>
+                            <p>Documento oficial que acredita tu participación en el programa de 6 horas de
+                                formación.
+                            </p>
 
-                <div class="instructor-card-compact teal">
-                    <div class="instructor-initials bg-teal">JD</div>
-                    <h3 class="instructor-name-compact">Juan Pablo David</h3>
-                    <p class="instructor-role-compact">GenAI Expert</p>
-                    <span class="specialty-badge">
-                        <i class="fa-solid fa-brain"></i> Modelos LLM
-                    </span>
+                            <div class="cert-requisitos" style="margin-top: 15px;">
+                                <div class="req-item"
+                                    style="border-color: var(--naranja-brillante); color: var(--naranja-oscuro);">
+                                    <i class="fa-solid fa-check"></i> Asistencia Completa
+                                </div>
+                            </div>
+
+                            <div class="cert-badge"
+                                style="margin-top: 20px; width: 100%; justify-content: center; background: var(--azul-principal);">
+                                <span class="badge-icon">⭐</span>
+                                <span class="badge-text">Certificado Fractal</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
-        </section>
 
 
-        <!-- SECCIÓN CRITERIOS DE EVALUACIÓN -->
-        <section class="evaluacion-section" id="evaluacion">
-            <div class="evaluacion-container">
-                <div class="section-header">
-                    <div class="section-badge">📊 REQUISITOS</div>
-                    <h2 class="section-title">Evaluación y Certificación</h2>
-                    <p class="section-description">
-                        Este programa intensivo se aprueba cumpliendo con el requisito de asistencia.
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+
+    <!-- CALENDARIO VISUAL SECTION -->
+    <section class="calendar-visual-section" id="calendario-visual">
+        <div class="calendar-visual-container">
+            <div class="section-header">
+                <div class="section-badge">📅 PLANIFICACIÓN COMPLETA</div>
+                <h2 class="section-title">Calendario Visual de Clases</h2>
+                <p class="section-description">
+                    Vista completa de todas las sesiones programadas de noviembre 2025 a marzo 2026
+                </p>
+            </div>
+
+            <div class="months-grid">
+                <div class="month-container">
+                    <h3 class="month-title">Enero 2026</h3>
+                    <div class="calendar-grid">
+                        <div class="day-header">L</div>
+                        <div class="day-header">M</div>
+                        <div class="day-header">M</div>
+                        <div class="day-header">J</div>
+                        <div class="day-header">V</div>
+                        <div class="day-header">S</div>
+                        <div class="day-header">D</div>
+
+                        <div class="calendar-day empty"></div>
+                        <div class="calendar-day empty"></div>
+                        <div class="calendar-day empty"></div>
+
+
+                        <div class="calendar-day"><span class="day-num">1</span></div>
+                        <div class="calendar-day"><span class="day-num">2</span></div>
+                        <div class="calendar-day"><span class="day-num">3</span></div>
+                        <div class="calendar-day"><span class="day-num">4</span></div>
+                        <div class="calendar-day"><span class="day-num">5</span></div>
+                        <div class="calendar-day"><span class="day-num">6</span></div>
+                        <div class="calendar-day"><span class="day-num">7</span></div>
+                        <div class="calendar-day"><span class="day-num">8</span></div>
+                        <div class="calendar-day"><span class="day-num">9</span></div>
+                        <div class="calendar-day"><span class="day-num">10</span></div>
+                        <div class="calendar-day"><span class="day-num">11</span></div>
+                        <div class="calendar-day"><span class="day-num">12</span></div>
+                        <div class="calendar-day"><span class="day-num">13</span></div>
+                        <div class="calendar-day"><span class="day-num">14</span></div>
+                        <div class="calendar-day"><span class="day-num">15</span></div>
+                        <div class="calendar-day"><span class="day-num">16</span></div>
+                        <div class="calendar-day"><span class="day-num">17</span></div>
+                        <div class="calendar-day"><span class="day-num">18</span></div>
+                        <div class="calendar-day"><span class="day-num">19</span></div>
+                        <div class="calendar-day"><span class="day-num">20</span></div>
+                        <div class="calendar-day"><span class="day-num">21</span></div>
+                        <div class="calendar-day"><span class="day-num">22</span></div>
+
+                        <div class="calendar-day"><span class="day-num">23</span></div>
+                        <div class="calendar-day"><span class="day-num">24</span></div>
+                        <div class="calendar-day"><span class="day-num">25</span></div>
+                        <div class="calendar-day"><span class="day-num">26</span></div>
+
+                        <div class="calendar-day"><span class="day-num">27</span></div>
+                        <div class="calendar-day class-frontend"
+                            style="background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%); border:none;">
+                            <span class="day-num" style="color:white">28</span>
+                            <span class="class-tag">N8n #2</span>
+                        </div>
+                        <div class="calendar-day"><span class="day-num">29</span></div>
+                        <div class="calendar-day"><span class="day-num">30</span></div>
+                        <div class="calendar-day"><span class="day-num">31</span></div>
+                    </div>
+                </div>
+
+                <div class="month-container">
+                    <h3 class="month-title">Febrero 2026</h3>
+                    <div class="calendar-grid">
+                        <div class="day-header">L</div>
+                        <div class="day-header">M</div>
+                        <div class="day-header">M</div>
+                        <div class="day-header">J</div>
+                        <div class="day-header">V</div>
+                        <div class="day-header">S</div>
+                        <div class="day-header">D</div>
+
+                        <div class="calendar-day empty"></div>
+                        <div class="calendar-day empty"></div>
+                        <div class="calendar-day empty"></div>
+                        <div class="calendar-day empty"></div>
+                        <div class="calendar-day empty"></div>
+                        <div class="calendar-day empty"></div>
+                        <div class="calendar-day"><span class="day-num">1</span></div>
+
+                        <div class="calendar-day class-cloud"
+                            style="background: linear-gradient(135deg, #00A896 0%, #4ECDC4 100%); border:none;">
+                            <span class="day-num" style="color:white">2</span><span class="class-tag">S2</span>
+                        </div>
+                        <div class="calendar-day"><span class="day-num">3</span></div>
+                        <div class="calendar-day class-cloud"
+                            style="background: linear-gradient(135deg, #00A896 0%, #4ECDC4 100%); border:none;">
+                            <span class="day-num" style="color:white">4</span><span class="class-tag">S3</span>
+                        </div>
+                        <div class="calendar-day"><span class="day-num">5</span></div>
+                        <div class="calendar-day"><span class="day-num">6</span></div>
+                        <div class="calendar-day"><span class="day-num">7</span></div>
+                        <div class="calendar-day"><span class="day-num">8</span></div>
+
+                        <div class="calendar-day class-cloud"
+                            style="background: linear-gradient(135deg, #2E86DE 0%, #54A0FF 100%); border:none;">
+                            <span class="day-num" style="color:white">9</span><span class="class-tag">Final</span>
+                        </div>
+                        <div class="calendar-day"><span class="day-num">10</span></div>
+                        <div class="calendar-day"><span class="day-num">11</span></div>
+                        <div class="calendar-day"><span class="day-num">12</span></div>
+                        <div class="calendar-day"><span class="day-num">13</span></div>
+                        <div class="calendar-day"><span class="day-num">14</span></div>
+                        <div class="calendar-day"><span class="day-num">15</span></div>
+                        <div class="calendar-day"><span class="day-num">16</span></div>
+                        <div class="calendar-day"><span class="day-num">17</span></div>
+                        <div class="calendar-day"><span class="day-num">18</span></div>
+                        <div class="calendar-day"><span class="day-num">19</span></div>
+                        <div class="calendar-day"><span class="day-num">20</span></div>
+                        <div class="calendar-day"><span class="day-num">21</span></div>
+                        <div class="calendar-day"><span class="day-num">22</span></div>
+                        <div class="calendar-day"><span class="day-num">23</span></div>
+                        <div class="calendar-day"><span class="day-num">24</span></div>
+                        <div class="calendar-day"><span class="day-num">25</span></div>
+                        <div class="calendar-day"><span class="day-num">26</span></div>
+                        <div class="calendar-day"><span class="day-num">27</span></div>
+                        <div class="calendar-day"><span class="day-num">28</span></div>
+                        <div class="calendar-day empty"></div>
+                        <div class="calendar-day empty"></div>
+                        <div class="calendar-day empty"></div>
+                        <div class="calendar-day empty"></div>
+                        <div class="calendar-day empty"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LEYENDA -->
+            <div class="calendar-legend"
+                style="display: flex; justify-content: center; gap: 25px; flex-wrap: wrap; background: #f8f9fa; border-radius: 15px; padding: 25px;">
+
+                <div class="legend-item">
+                    <div class="legend-box"
+                        style="background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%); box-shadow: 0 4px 10px rgba(255, 107, 107, 0.3);">
+                    </div>
+                    <div style="display: flex; flex-direction: column;">
+                        <span style="font-size: 13px; color: var(--gris-medio);">Semana 1</span>
+                        <strong style="color: var(--azul-petróleo); font-size: 14px;">Fundamentos N8n</strong>
+                    </div>
+                </div>
+
+                <div class="legend-item">
+                    <div class="legend-box"
+                        style="background: linear-gradient(135deg, #00A896 0%, #4ECDC4 100%); box-shadow: 0 4px 10px rgba(0, 168, 150, 0.3);">
+                    </div>
+                    <div style="display: flex; flex-direction: column;">
+                        <span style="font-size: 13px; color: var(--gris-medio);">Semana 2</span>
+                        <strong style="color: var(--azul-petróleo); font-size: 14px;">Cloud, DevOps & RAG</strong>
+                    </div>
+                </div>
+
+                <div class="legend-item">
+                    <div class="legend-box"
+                        style="background: linear-gradient(135deg, #2E86DE 0%, #54A0FF 100%); box-shadow: 0 4px 10px rgba(46, 134, 222, 0.3);">
+                    </div>
+                    <div style="display: flex; flex-direction: column;">
+                        <span style="font-size: 13px; color: var(--gris-medio);">Semana 3</span>
+                        <strong style="color: var(--azul-petróleo); font-size: 14px;">Agentes & Estrategia</strong>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN IA TECHS -->
+    <section class="ia-section-modern" id="ia-techs">
+        <div class="ia-container">
+
+            <div class="section-header">
+                <div class="section-badge" style="background: #E3F2FD; color: var(--azul-principal);">🤖 AI-FIRST
+                    APPROACH</div>
+                <h2 class="section-title">Programa Nativo en Inteligencia Artificial</h2>
+                <p class="section-description">
+                    Olvídate de la programación tradicional. Este curso está diseñado para enseñarte a
+                    <strong>orquestar cerebros digitales</strong> usando las últimas tecnologías de IA Generativa.
+                </p>
+            </div>
+
+            <div class="ia-grid-modern">
+
+                <div class="ia-card-modern">
+                    <div class="ia-icon-circle bg-grad-orange">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+                    <h3 class="ia-card-title-modern">Agentes Autónomos</h3>
+                    <p class="ia-card-text-modern">
+                        Aprende a configurar el nodo <strong>"AI Agent"</strong> en N8n. Crea bots capaces de
+                        razonar, tomar decisiones y ejecutar herramientas externas sin que tengas que programar cada
+                        paso.
                     </p>
                 </div>
 
-                <div class="evaluacion-grid">
-
-                    <div class="evaluacion-card asistencia-card" style="border-color: var(--naranja-brillante);">
-                        <div class="card-icon">
-                            <span class="icon-large">📅</span>
-                        </div>
-                        <h3 class="card-title">Asistencia Obligatoria</h3>
-                        <div class="card-content">
-                            <div class="alert-box warning">
-                                <span class="alert-icon">⚠️</span>
-                                <div class="alert-content">
-                                    <strong>Único Requisito:</strong> Máximo <span class="highlight-number">1
-                                        inasistencia</span> permitida durante todo el programa.
-                                </div>
-                            </div>
-
-                            <div class="info-list" style="margin-top: 20px;">
-                                <div class="info-item">
-                                    <span class="check-icon">✓</span>
-                                    <span>Se toma asistencia al inicio de cada sesión en vivo.</span>
-                                </div>
-                                <div class="info-item">
-                                    <span class="check-icon">✓</span>
-                                    <span>La puntualidad es fundamental para el registro.</span>
-                                </div>
-                                <div class="info-item">
-                                    <span class="check-icon">✓</span>
-                                    <span>No hay entregas ni exámenes prácticos.</span>
-                                </div>
-                            </div>
-                        </div>
+                <div class="ia-card-modern">
+                    <div class="ia-icon-circle bg-grad-blue">
+                        <i class="fa-solid fa-database"></i>
                     </div>
-
-                    <div class="evaluacion-card certificacion-card">
-                        <div class="card-icon">
-                            <span class="icon-large">🎓</span>
-                        </div>
-                        <h3 class="card-title">Certificación</h3>
-                        <div class="card-content">
-                            <div class="cert-type cert-final"
-                                style="background: linear-gradient(135deg, var(--azul-muy-claro) 0%, var(--blanco) 100%); border: 2px solid var(--azul-principal);">
-                                <div class="cert-header">
-                                    <span class="cert-icon">📜</span>
-                                    <h4 style="color: var(--azul-petróleo);">Constancia de Participación</h4>
-                                </div>
-                                <p>Documento oficial que acredita tu participación en el programa de 6 horas de
-                                    formación.
-                                </p>
-
-                                <div class="cert-requisitos" style="margin-top: 15px;">
-                                    <div class="req-item"
-                                        style="border-color: var(--naranja-brillante); color: var(--naranja-oscuro);">
-                                        <i class="fa-solid fa-check"></i> Asistencia Completa
-                                    </div>
-                                </div>
-
-                                <div class="cert-badge"
-                                    style="margin-top: 20px; width: 100%; justify-content: center; background: var(--azul-principal);">
-                                    <span class="badge-icon">⭐</span>
-                                    <span class="badge-text">Certificado Fractal</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-        
-            </div>
-        </section>
-
-        <!-- FOOTER -->
-
-        <!-- CALENDARIO VISUAL SECTION -->
-        <section class="calendar-visual-section" id="calendario-visual">
-            <div class="calendar-visual-container">
-                <div class="section-header">
-                    <div class="section-badge">📅 PLANIFICACIÓN COMPLETA</div>
-                    <h2 class="section-title">Calendario Visual de Clases</h2>
-                    <p class="section-description">
-                        Vista completa de todas las sesiones programadas de noviembre 2025 a marzo 2026
+                    <h3 class="ia-card-title-modern">Sistemas RAG</h3>
+                    <p class="ia-card-text-modern">
+                        Domina la <strong>Generación Aumentada por Recuperación</strong>. Conecta tus propios PDF,
+                        Excel y bases de datos a la IA para que responda con información de tu empresa, no de
+                        internet.
                     </p>
                 </div>
 
-                <div class="months-grid">
-                    <div class="month-container">
-                        <h3 class="month-title">Enero 2026</h3>
-                        <div class="calendar-grid">
-                            <div class="day-header">L</div>
-                            <div class="day-header">M</div>
-                            <div class="day-header">M</div>
-                            <div class="day-header">J</div>
-                            <div class="day-header">V</div>
-                            <div class="day-header">S</div>
-                            <div class="day-header">D</div>
-
-                            <div class="calendar-day empty"></div>
-                            <div class="calendar-day empty"></div>
-                            <div class="calendar-day empty"></div>
-
-
-                            <div class="calendar-day"><span class="day-num">1</span></div>
-                            <div class="calendar-day"><span class="day-num">2</span></div>
-                            <div class="calendar-day"><span class="day-num">3</span></div>
-                            <div class="calendar-day"><span class="day-num">4</span></div>
-                            <div class="calendar-day"><span class="day-num">5</span></div>
-                            <div class="calendar-day"><span class="day-num">6</span></div>
-                            <div class="calendar-day"><span class="day-num">7</span></div>
-                            <div class="calendar-day"><span class="day-num">8</span></div>
-                            <div class="calendar-day"><span class="day-num">9</span></div>
-                            <div class="calendar-day"><span class="day-num">10</span></div>
-                            <div class="calendar-day"><span class="day-num">11</span></div>
-                            <div class="calendar-day"><span class="day-num">12</span></div>
-                            <div class="calendar-day"><span class="day-num">13</span></div>
-                            <div class="calendar-day"><span class="day-num">14</span></div>
-                            <div class="calendar-day"><span class="day-num">15</span></div>
-                            <div class="calendar-day"><span class="day-num">16</span></div>
-                            <div class="calendar-day"><span class="day-num">17</span></div>
-                            <div class="calendar-day"><span class="day-num">18</span></div>
-                            <div class="calendar-day"><span class="day-num">19</span></div>
-                            <div class="calendar-day"><span class="day-num">20</span></div>
-                            <div class="calendar-day"><span class="day-num">21</span></div>
-                            <div class="calendar-day"><span class="day-num">22</span></div>
-
-                            <div class="calendar-day"><span class="day-num">23</span></div>
-                            <div class="calendar-day"><span class="day-num">24</span></div>
-                            <div class="calendar-day"><span class="day-num">25</span></div>
-                            <div class="calendar-day"><span class="day-num">26</span></div>
-
-                            <div class="calendar-day"><span class="day-num">27</span></div>
-                            <div class="calendar-day class-frontend"
-                                style="background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%); border:none;">
-                                <span class="day-num" style="color:white">28</span>
-                                <span class="class-tag">N8n #2</span>
-                            </div>
-                            <div class="calendar-day"><span class="day-num">29</span></div>
-                            <div class="calendar-day"><span class="day-num">30</span></div>
-                            <div class="calendar-day"><span class="day-num">31</span></div>
-                        </div>
+                <div class="ia-card-modern">
+                    <div class="ia-icon-circle bg-grad-teal">
+                        <i class="fa-solid fa-microchip"></i>
                     </div>
-
-                    <div class="month-container">
-                        <h3 class="month-title">Febrero 2026</h3>
-                        <div class="calendar-grid">
-                            <div class="day-header">L</div>
-                            <div class="day-header">M</div>
-                            <div class="day-header">M</div>
-                            <div class="day-header">J</div>
-                            <div class="day-header">V</div>
-                            <div class="day-header">S</div>
-                            <div class="day-header">D</div>
-
-                            <div class="calendar-day empty"></div>
-                            <div class="calendar-day empty"></div>
-                            <div class="calendar-day empty"></div>
-                            <div class="calendar-day empty"></div>
-                            <div class="calendar-day empty"></div>
-                            <div class="calendar-day empty"></div>
-                            <div class="calendar-day"><span class="day-num">1</span></div>
-
-                            <div class="calendar-day class-frontend"
-                                style="background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%); border:none;">
-                                <span class="day-num" style="color:white">2</span><span class="class-tag">S2</span>
-                            </div>
-                            <div class="calendar-day"><span class="day-num">3</span></div>
-                            <div class="calendar-day class-frontend"
-                                style="background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%); border:none;">
-                                <span class="day-num" style="color:white">4</span><span class="class-tag">S3</span>
-                            </div>
-                            <div class="calendar-day"><span class="day-num">5</span></div>
-                            <div class="calendar-day"><span class="day-num">6</span></div>
-                            <div class="calendar-day"><span class="day-num">7</span></div>
-                            <div class="calendar-day"><span class="day-num">8</span></div>
-
-                            <div class="calendar-day class-cloud"
-                                style="background: linear-gradient(135deg, #00A896 0%, #4ECDC4 100%); border:none;">
-                                <span class="day-num" style="color:white">9</span><span class="class-tag">S4</span>
-                            </div>
-                            <div class="calendar-day"><span class="day-num">10</span></div>
-                            <div class="calendar-day class-cloud"
-                                style="background: linear-gradient(135deg, #00A896 0%, #4ECDC4 100%); border:none;">
-                                <span class="day-num" style="color:white">11</span><span class="class-tag">S5</span>
-                            </div>
-                            <div class="calendar-day"><span class="day-num">12</span></div>
-                            <div class="calendar-day"><span class="day-num">13</span></div>
-                            <div class="calendar-day"><span class="day-num">14</span></div>
-                            <div class="calendar-day"><span class="day-num">15</span></div>
-
-                            <div class="calendar-day class-cloud"
-                                style="background: linear-gradient(135deg, #00A896 0%, #4ECDC4 100%); border:none;">
-                                <span class="day-num" style="color:white">16</span><span class="class-tag">S6</span>
-                            </div>
-                            <div class="calendar-day"><span class="day-num">17</span></div>
-                            <div class="calendar-day"><span class="day-num">18</span></div>
-                            <div class="calendar-day"><span class="day-num">19</span></div>
-                            <div class="calendar-day"><span class="day-num">20</span></div>
-                            <div class="calendar-day"><span class="day-num">21</span></div>
-                            <div class="calendar-day"><span class="day-num">22</span></div>
-                            <div class="calendar-day"><span class="day-num">23</span></div>
-                            <div class="calendar-day"><span class="day-num">24</span></div>
-                            <div class="calendar-day"><span class="day-num">25</span></div>
-                            <div class="calendar-day"><span class="day-num">26</span></div>
-                            <div class="calendar-day"><span class="day-num">27</span></div>
-                            <div class="calendar-day"><span class="day-num">28</span></div>
-
-                            <div class="calendar-day empty"></div>
-                            <div class="calendar-day empty"></div>
-                            <div class="calendar-day empty"></div>
-                            <div class="calendar-day empty"></div>
-                            <div class="calendar-day empty"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- LEYENDA -->
-                <div class="calendar-legend"
-                    style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;">
-
-                    <div class="legend-item">
-                        <div class="legend-box" style="background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);">
-                        </div>
-                        <span><strong>N8n Automation</strong> (Semana 1)</span>
-                    </div>
-
-                    <div class="legend-item">
-                        <div class="legend-box" style="background: linear-gradient(135deg, #00A896 0%, #4ECDC4 100%);">
-                        </div>
-                        <span><strong>RAG & GenAI</strong> (Semana 2)</span>
-                    </div>
-
-                    <div class="legend-item">
-                        <div class="legend-box legend-feriado"></div>
-                        <span><strong>Feriado</strong></span>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-        <!-- SECCIÓN IA TECHS -->
-        <section class="ia-section-modern" id="ia-techs">
-            <div class="ia-container">
-
-                <div class="section-header">
-                    <div class="section-badge" style="background: #E3F2FD; color: var(--azul-principal);">🤖 AI-FIRST
-                        APPROACH</div>
-                    <h2 class="section-title">Programa Nativo en Inteligencia Artificial</h2>
-                    <p class="section-description">
-                        Olvídate de la programación tradicional. Este curso está diseñado para enseñarte a
-                        <strong>orquestar cerebros digitales</strong> usando las últimas tecnologías de IA Generativa.
+                    <h3 class="ia-card-title-modern">Modelos LLM</h3>
+                    <p class="ia-card-text-modern">
+                        Aprende a integrar y orquestar modelos de lenguaje avanzados como <strong>GPT-4o, Claude 3.5
+                            Sonnet y Gemini</strong>. Entiende cuándo usar cada uno según el costo y la capacidad.
                     </p>
                 </div>
 
-                <div class="ia-grid-modern">
-
-                    <div class="ia-card-modern">
-                        <div class="ia-icon-circle bg-grad-orange">
-                            <i class="fa-solid fa-robot"></i>
-                        </div>
-                        <h3 class="ia-card-title-modern">Agentes Autónomos</h3>
-                        <p class="ia-card-text-modern">
-                            Aprende a configurar el nodo <strong>"AI Agent"</strong> en N8n. Crea bots capaces de
-                            razonar, tomar decisiones y ejecutar herramientas externas sin que tengas que programar cada
-                            paso.
-                        </p>
+                <div class="ia-card-modern">
+                    <div class="ia-icon-circle bg-grad-purple">
+                        <i class="fa-solid fa-share-nodes"></i>
                     </div>
-
-                    <div class="ia-card-modern">
-                        <div class="ia-icon-circle bg-grad-blue">
-                            <i class="fa-solid fa-database"></i>
-                        </div>
-                        <h3 class="ia-card-title-modern">Sistemas RAG</h3>
-                        <p class="ia-card-text-modern">
-                            Domina la <strong>Generación Aumentada por Recuperación</strong>. Conecta tus propios PDF,
-                            Excel y bases de datos a la IA para que responda con información de tu empresa, no de
-                            internet.
-                        </p>
-                    </div>
-
-                    <div class="ia-card-modern">
-                        <div class="ia-icon-circle bg-grad-teal">
-                            <i class="fa-solid fa-microchip"></i>
-                        </div>
-                        <h3 class="ia-card-title-modern">Modelos LLM</h3>
-                        <p class="ia-card-text-modern">
-                            Aprende a integrar y orquestar modelos de lenguaje avanzados como <strong>GPT-4o, Claude 3.5
-                                Sonnet y Gemini</strong>. Entiende cuándo usar cada uno según el costo y la capacidad.
-                        </p>
-                    </div>
-
-                    <div class="ia-card-modern">
-                        <div class="ia-icon-circle bg-grad-purple">
-                            <i class="fa-solid fa-share-nodes"></i>
-                        </div>
-                        <h3 class="ia-card-title-modern">Embeddings & Vectores</h3>
-                        <p class="ia-card-text-modern">
-                            Entiende la magia detrás de la búsqueda semántica. Aprenderás a convertir texto en vectores
-                            matemáticos y almacenarlos en <strong>Pinecone o Qdrant</strong> para búsquedas
-                            inteligentes.
-                        </p>
-                    </div>
-
-                </div>
-
-                <div style="text-align: center; margin-top: 60px;">
-                    <p style="font-size: 18px; color: var(--azul-petróleo); font-weight: 600;">
-                        <i class="fa-solid fa-bolt" style="color: var(--naranja-principal);"></i>
-                        El resultado: Automatizaciones que no solo "hacen", sino que <strong>entienden</strong>.
+                    <h3 class="ia-card-title-modern">Embeddings & Vectores</h3>
+                    <p class="ia-card-text-modern">
+                        Entiende la magia detrás de la búsqueda semántica. Aprenderás a convertir texto en vectores
+                        matemáticos y almacenarlos en <strong>Pinecone o Qdrant</strong> para búsquedas
+                        inteligentes.
                     </p>
                 </div>
 
             </div>
-        </section>
 
-        <footer class="footer">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Fractal Training</h3>
-                    <p>Formamos profesionales tech con las habilidades más demandadas del mercado. Únete a nuestra
-                        comunidad y transforma tu carrera.</p>
-                </div>
-                <div class="footer-section">
-                    <h3>Programa</h3>
-                    <div class="footer-links">
-                        <a href="javascript:void(0);" class="footer-link"
-                            onclick="scrollToSection('components'); return false;">→ Componentes</a>
-                        <a href="javascript:void(0);" class="footer-link"
-                            onclick="scrollToSection('schedule'); return false;">→ Horarios</a>
-                        <a href="javascript:void(0);" class="footer-link"
-                            onclick="scrollToSection('instructors'); return false;">→ Instructores</a>
-                    </div>
-                </div>
-                <div class="footer-section">
-                    <h3>Contacto</h3>
-                    <div class="footer-links">
-                        <a href="https://www.fractal.com.pe/" target="_blank" class="footer-link">🌐
-                            www.fractal.com.pe</a>
-                        <span class="footer-link">📍 Lima, Perú</span>
-                    </div>
+            <div style="text-align: center; margin-top: 60px;">
+                <p style="font-size: 18px; color: var(--azul-petróleo); font-weight: 600;">
+                    <i class="fa-solid fa-bolt" style="color: var(--naranja-principal);"></i>
+                    El resultado: Automatizaciones que no solo "hacen", sino que <strong>entienden</strong>.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Fractal Training</h3>
+                <p>Formamos profesionales tech con las habilidades más demandadas del mercado. Únete a nuestra
+                    comunidad y transforma tu carrera.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Programa</h3>
+                <div class="footer-links">
+                    <a href="javascript:void(0);" class="footer-link"
+                        onclick="scrollToSection('components'); return false;">→ Componentes</a>
+                    <a href="javascript:void(0);" class="footer-link"
+                        onclick="scrollToSection('schedule'); return false;">→ Horarios</a>
+                    <a href="javascript:void(0);" class="footer-link"
+                        onclick="scrollToSection('instructors'); return false;">→ Instructores</a>
                 </div>
             </div>
-            <div class="footer-bottom">
-                © 2025 Fractal. Todos los derechos reservados. | Programa de Entrenamiento N°13
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <div class="footer-links">
+                    <a href="https://www.fractal.com.pe/" target="_blank" class="footer-link">🌐
+                        www.fractal.com.pe</a>
+                    <span class="footer-link">📍 Lima, Perú</span>
+                </div>
             </div>
-        </footer>
+        </div>
+        <div class="footer-bottom">
+            © 2025 Fractal. Todos los derechos reservados. | Programa de Entrenamiento N°13
+        </div>
+    </footer>
     </div>
     <!-- FIN CONTENIDO PRINCIPAL -->
 
@@ -6679,35 +6722,62 @@
                             <tr class="row-semana-1" style="background-color: #fff9f0;">
                                 <td rowspan="2"
                                     style="font-weight:bold; color:var(--naranja-oscuro); vertical-align: middle; border-right: 1px solid #eee;">
-                                    Semana 1
+                                    Sesión 1<br><small>28 Ene</small>
                                 </td>
-                                <td class="session-number">1</td>
-                                <td style="font-weight:700">Fundamentos de N8n</td>
-                                <td>Instalación (Docker/Desktop), interfaz de N8n, nodos básicos y primer "Hello World".
-                                </td>
+                                <td class="session-number">M1</td>
+                                <td style="font-weight:700">Productividad n8n</td>
+                                <td>Tipos de automatización (Event/Batch), Casos reales (Banca/Retail) y n8n como
+                                    orquestador.</td>
                             </tr>
                             <tr class="row-semana-1" style="background-color: #fff9f0;">
-                                <td class="session-number">2</td>
-                                <td style="font-weight:700">Conectividad y Lógica</td>
-                                <td>Consumo de APIs REST, Webhooks, transformación de datos JSON y estructuras de
-                                    control.</td>
+                                <td class="session-number">M2</td>
+                                <td style="font-weight:700">Integración & Auth</td>
+                                <td>APIs REST, Autenticación (OAuth2, JWT), Bases de datos (SQL) y Normalización.</td>
                             </tr>
 
                             <tr class="row-semana-2" style="background-color: #f0faff;">
                                 <td rowspan="2"
                                     style="font-weight:bold; color:var(--azul-petróleo); vertical-align: middle; border-right: 1px solid #eee;">
-                                    Semana 2
+                                    Sesión 2<br><small>02 Feb</small>
                                 </td>
-                                <td class="session-number">3</td>
-                                <td style="font-weight:700">Introducción a GenAI y RAG</td>
-                                <td>Conceptos clave: LLMs, Embeddings y Bases de Datos Vectoriales (Pinecone/Qdrant).
-                                </td>
+                                <td class="session-number">M3</td>
+                                <td style="font-weight:700">Cloud Orchestration</td>
+                                <td>Delegar lógica a AWS Lambda, Integración S3 y patrones híbridos n8n+Cloud.</td>
                             </tr>
                             <tr class="row-semana-2" style="background-color: #f0faff;">
-                                <td class="session-number">4</td>
-                                <td style="font-weight:700">Proyecto Final: Chatbot RAG</td>
-                                <td>Construcción de un flujo RAG completo: Carga de documentos, vectorización y chat
-                                    inteligente.</td>
+                                <td class="session-number">M4</td>
+                                <td style="font-weight:700">DevOps en n8n</td>
+                                <td>Diseño mantenible, Sub-workflows, Manejo de errores, Logs y Alertas.</td>
+                            </tr>
+
+                            <tr class="row-semana-2" style="background-color: #f0fff4;">
+                                <td rowspan="2"
+                                    style="font-weight:bold; color:#00A896; vertical-align: middle; border-right: 1px solid #eee;">
+                                    Sesión 3<br><small>04 Feb</small>
+                                </td>
+                                <td class="session-number">M5</td>
+                                <td style="font-weight:700">GPT en Producción</td>
+                                <td>Prompt Engineering de negocio, Salidas JSON estructuradas e integración LLM.</td>
+                            </tr>
+                            <tr class="row-semana-2" style="background-color: #f0fff4;">
+                                <td class="session-number">M6</td>
+                                <td style="font-weight:700">RAG Corporativo</td>
+                                <td>Arquitectura RAG, Integración vía API/BD y Control de contexto y permisos.</td>
+                            </tr>
+
+                            <tr class="row-semana-3" style="background-color: #f3f0ff;">
+                                <td rowspan="2"
+                                    style="font-weight:bold; color:#6C63FF; vertical-align: middle; border-right: 1px solid #eee;">
+                                    Sesión 4<br><small>09 Feb</small>
+                                </td>
+                                <td class="session-number">M7</td>
+                                <td style="font-weight:700">Arquitectura Agentes</td>
+                                <td>Diseño de agentes, Bots de WhatsApp (Meta/Twilio) y exposición vía Webhook.</td>
+                            </tr>
+                            <tr class="row-semana-3" style="background-color: #f3f0ff;">
+                                <td class="session-number">M8</td>
+                                <td style="font-weight:700">Estrategia Tech</td>
+                                <td>Análisis de riesgo, n8n vs Código, Costos y Taller de decisión tecnológica.</td>
                             </tr>
                         </tbody>
                     </table>
