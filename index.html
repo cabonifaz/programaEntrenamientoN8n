@@ -5874,18 +5874,17 @@
                             Ver Temario
                         </a>
                     </div>
-
                     <div class="hero-stats">
                         <div class="stat-card">
-                            <div class="stat-number">6</div>
+                            <div class="stat-number">12</div>
                             <div class="stat-label">Horas</div>
                         </div>
                         <div class="stat-card">
-                            <div class="stat-number">2</div>
+                            <div class="stat-number">4</div>
                             <div class="stat-label">Semanas</div>
                         </div>
                         <div class="stat-card">
-                            <div class="stat-number">4</div>
+                            <div class="stat-number">6</div>
                             <div class="stat-label">Sesiones</div>
                         </div>
                     </div>
@@ -5966,53 +5965,48 @@
                     <h3>Syllabus Detallado (4 Sesiones)</h3>
                 </div>
 
-                <div class="syllabus-grid-4">
+                <div class="syllabus-grid-4" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+
                     <div class="session-card week-1">
-                        <div class="session-badge">Semana 1</div>
+                        <div class="session-badge">Semana 1 (Mié)</div>
                         <h4 class="session-title">Fundamentos de N8n</h4>
-                        <p class="session-desc">
-                            Instalación (Docker/Desktop), recorrido por la interfaz, nodos básicos y creación de tu
-                            primer flujo "Hello World".
-                        </p>
-                        <div class="session-footer">
-                            <i class="fa-regular fa-clock"></i> 2 Horas
-                        </div>
+                        <p class="session-desc">Instalación (Docker/Desktop), recorrido por la interfaz, nodos básicos y
+                            primer flujo "Hello World".</p>
                     </div>
 
-                    <div class="session-card week-1">
-                        <div class="session-badge">Semana 1</div>
+                    <div class="session-card week-2">
+                        <div class="session-badge" style="background:#E6F7F5; color:#00A896;">Semana 2 (Lun)</div>
                         <h4 class="session-title">Conectividad y Lógica</h4>
-                        <p class="session-desc">
-                            Consumo de APIs REST, Webhooks, transformación de datos JSON (Code Node) y estructuras de
-                            control (If, Switch).
-                        </p>
-                        <div class="session-footer">
-                            <i class="fa-regular fa-clock"></i> 2 Horas
-                        </div>
+                        <p class="session-desc">Consumo de APIs REST, Webhooks, transformación de datos JSON y
+                            estructuras de control (If, Switch).</p>
                     </div>
 
                     <div class="session-card week-2">
-                        <div class="session-badge">Semana 2</div>
+                        <div class="session-badge" style="background:#E6F7F5; color:#00A896;">Semana 2 (Mié)</div>
+                        <h4 class="session-title">Automatización Avanzada</h4>
+                        <p class="session-desc">Manejo de errores, bucles complejos, variables de entorno y conexión con
+                            Google Sheets/Drive.</p>
+                    </div>
+
+                    <div class="session-card week-2">
+                        <div class="session-badge" style="background:#FFF4E6; color:#E87020;">Semana 3 (Lun)</div>
                         <h4 class="session-title">Intro a GenAI y RAG</h4>
-                        <p class="session-desc">
-                            Conceptos clave: LLMs, Embeddings y configuración de Bases de Datos Vectoriales
-                            (Pinecone/Qdrant) dentro de N8n.
-                        </p>
-                        <div class="session-footer">
-                            <i class="fa-regular fa-clock"></i> 2 Horas
-                        </div>
+                        <p class="session-desc">Conceptos clave: LLMs, Embeddings y configuración de Bases de Datos
+                            Vectoriales en N8n.</p>
                     </div>
 
                     <div class="session-card week-2">
-                        <div class="session-badge">Semana 2</div>
-                        <h4 class="session-title">Proyecto Final Chatbot</h4>
-                        <p class="session-desc">
-                            Construcción del flujo RAG completo: Carga de documentos PDF, vectorización y chat
-                            inteligente con memoria.
-                        </p>
-                        <div class="session-footer">
-                            <i class="fa-regular fa-clock"></i> 2 Horas
-                        </div>
+                        <div class="session-badge" style="background:#FFF4E6; color:#E87020;">Semana 3 (Mié)</div>
+                        <h4 class="session-title">Agentes de IA</h4>
+                        <p class="session-desc">Configuración del nodo AI Agent, uso de herramientas (Tools) y memoria
+                            conversacional.</p>
+                    </div>
+
+                    <div class="session-card week-2">
+                        <div class="session-badge" style="background:#E3F2FD; color:#1565C0;">Semana 4 (Lun)</div>
+                        <h4 class="session-title">Proyecto Final</h4>
+                        <p class="session-desc">Construcción del chatbot RAG completo: Carga de PDF, vectorización y
+                            despliegue final.</p>
                     </div>
                 </div>
             </div>
@@ -6029,10 +6023,16 @@
             <div class="schedule-container">
                 <div class="schedule-tabs">
                     <button class="tab-button active" onclick="showSchedule('semana1')">
-                        Semana 1<br><small>23 Feb - 01 Mar</small>
+                        Semana 1<br><small>28 Ene - 01 Feb</small>
                     </button>
                     <button class="tab-button" onclick="showSchedule('semana2')">
-                        Semana 2<br><small>02 Mar - 08 Mar</small>
+                        Semana 2<br><small>02 Feb - 08 Feb</small>
+                    </button>
+                    <button class="tab-button" onclick="showSchedule('semana3')">
+                        Semana 3<br><small>09 Feb - 15 Feb</small>
+                    </button>
+                    <button class="tab-button" onclick="showSchedule('semana4')">
+                        Semana 4<br><small>16 Feb - 22 Feb</small>
                     </button>
                 </div>
 
@@ -6041,38 +6041,27 @@
                     <div class="schedule-content active" id="semana1Schedule">
                         <div class="schedule-header"
                             style="background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);">
-                            <div class="schedule-icon">
-                                <i class="fa-solid fa-share-nodes" style="color: white;"></i>
-                            </div>
-                            <div>SEMANA 1 • AUTOMATIZACIÓN CON N8N</div>
+                            <div class="schedule-icon"><i class="fa-solid fa-play" style="color: white;"></i></div>
+                            <div>INICIO DEL PROGRAMA</div>
                         </div>
                         <div class="schedule-table-wrapper">
                             <table>
                                 <thead>
                                     <tr>
                                         <th>Hora</th>
-                                        <th>Lunes 23 (Inicio)</th>
-                                        <th>Martes</th>
-                                        <th>Miércoles 25</th>
-                                        <th>Jueves</th>
-                                        <th>Viernes</th>
+                                        <th>Lunes</th>
+                                        <th>Miércoles 28 Ene</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td class="time-cell">6:30pm - 8:30pm</td>
-
+                                        <td style="background: #f9f9f9; color: #999;">-</td>
                                         <td>
-                                            <span class="class-badge csharp" style="background: #FF6B6B;"> Sesión
+                                            <span class="class-badge csharp" style="background: #FF6B6B;">Sesión
                                                 1</span>
+                                            <div style="font-size:12px; margin-top:5px;">Fundamentos N8n</div>
                                         </td>
-                                        <td style="background: #f0f0f0; color: #999;">-</td>
-                                        <td>
-                                            <span class="class-badge csharp" style="background: #FF6B6B;"> Sesión
-                                                2</span>
-                                        </td>
-                                        <td style="background: #f0f0f0; color: #999;">-</td>
-                                        <td style="background: #f0f0f0; color: #999;">-</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -6081,37 +6070,95 @@
 
                     <div class="schedule-content" id="semana2Schedule">
                         <div class="schedule-header"
-                            style="background: linear-gradient(135deg, #00A896 0%, #4ECDC4 100%);">
-                            <div class="schedule-icon">
-                                <i class="fa-solid fa-brain" style="color: white;"></i>
+                            style="background: linear-gradient(135deg, #FF9F43 0%, #FECA57 100%);">
+                            <div class="schedule-icon"><i class="fa-solid fa-share-nodes" style="color: white;"></i>
                             </div>
-                            <div>SEMANA 2 • GEN_AI & RAG</div>
+                            <div>AUTOMATIZACIÓN & LÓGICA</div>
                         </div>
                         <div class="schedule-table-wrapper">
                             <table>
                                 <thead>
                                     <tr>
                                         <th>Hora</th>
-                                        <th>Lunes 02</th>
-                                        <th>Martes</th>
-                                        <th>Miércoles 04 (Final)</th>
-                                        <th>Jueves</th>
-                                        <th>Viernes</th>
+                                        <th>Lunes 02 Feb</th>
+                                        <th>Miércoles 04 Feb</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td class="time-cell">6:30pm - 8:30pm</td>
+                                        <td>
+                                            <span class="class-badge csharp" style="background: #FF9F43;">Sesión
+                                                2</span>
+                                            <div style="font-size:12px; margin-top:5px;">Conectividad</div>
+                                        </td>
+                                        <td>
+                                            <span class="class-badge csharp" style="background: #FF9F43;">Sesión
+                                                3</span>
+                                            <div style="font-size:12px; margin-top:5px;">Lógica Avanzada</div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
 
+                    <div class="schedule-content" id="semana3Schedule">
+                        <div class="schedule-header"
+                            style="background: linear-gradient(135deg, #00A896 0%, #4ECDC4 100%);">
+                            <div class="schedule-icon"><i class="fa-solid fa-brain" style="color: white;"></i></div>
+                            <div>GEN_AI & VECTORES</div>
+                        </div>
+                        <div class="schedule-table-wrapper">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Hora</th>
+                                        <th>Lunes 09 Feb</th>
+                                        <th>Miércoles 11 Feb</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="time-cell">6:30pm - 8:30pm</td>
                                         <td>
-                                            <span class="class-badge sql" style="background: #00A896;"> Sesión 3</span>
+                                            <span class="class-badge sql" style="background: #00A896;">Sesión 4</span>
+                                            <div style="font-size:12px; margin-top:5px;">Intro RAG</div>
                                         </td>
-                                        <td style="background: #f0f0f0; color: #999;">-</td>
                                         <td>
-                                            <span class="class-badge sql" style="background: #00A896;"> Sesión 4</span>
+                                            <span class="class-badge sql" style="background: #00A896;">Sesión 5</span>
+                                            <div style="font-size:12px; margin-top:5px;">AI Agents</div>
                                         </td>
-                                        <td style="background: #f0f0f0; color: #999;">-</td>
-                                        <td style="background: #f0f0f0; color: #999;">-</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="schedule-content" id="semana4Schedule">
+                        <div class="schedule-header"
+                            style="background: linear-gradient(135deg, #2E86DE 0%, #54A0FF 100%);">
+                            <div class="schedule-icon"><i class="fa-solid fa-flag-checkered" style="color: white;"></i>
+                            </div>
+                            <div>CIERRE DE PROYECTO</div>
+                        </div>
+                        <div class="schedule-table-wrapper">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Hora</th>
+                                        <th>Lunes 16 Feb (Final)</th>
+                                        <th>Miércoles</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="time-cell">6:30pm - 8:30pm</td>
+                                        <td>
+                                            <span class="class-badge sql" style="background: #2E86DE;">Sesión 6</span>
+                                            <div style="font-size:12px; margin-top:5px;">Chatbot Final</div>
+                                        </td>
+                                        <td style="background: #f9f9f9; color: #999;">-</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -6120,6 +6167,7 @@
 
                 </div>
             </div>
+
         </section>
 
 
@@ -6354,11 +6402,8 @@
                             <div class="calendar-day"><span class="day-num">23</span></div>
                             <div class="calendar-day"><span class="day-num">24</span></div>
                             <div class="calendar-day"><span class="day-num">25</span></div>
-                            <div class="calendar-day class-frontend"
-                                style="background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%); border:none;">
-                                <span class="day-num" style="color:white">26</span>
-                                <span class="class-tag">N8n #1</span>
-                            </div>
+                            <div class="calendar-day"><span class="day-num">26</span></div>
+
                             <div class="calendar-day"><span class="day-num">27</span></div>
                             <div class="calendar-day class-frontend"
                                 style="background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%); border:none;">
@@ -6390,38 +6435,44 @@
                             <div class="calendar-day empty"></div>
                             <div class="calendar-day"><span class="day-num">1</span></div>
 
-                            <div class="calendar-day class-cloud"
-                                style="background: linear-gradient(135deg, #00A896 0%, #4ECDC4 100%); border:none;">
-                                <span class="day-num" style="color:white">2</span>
-                                <span class="class-tag">RAG #1</span>
+                            <div class="calendar-day class-frontend"
+                                style="background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%); border:none;">
+                                <span class="day-num" style="color:white">2</span><span class="class-tag">S2</span>
                             </div>
                             <div class="calendar-day"><span class="day-num">3</span></div>
-                            <div class="calendar-day class-cloud"
-                                style="background: linear-gradient(135deg, #00A896 0%, #4ECDC4 100%); border:none;">
-                                <span class="day-num" style="color:white">4</span>
-                                <span class="class-tag">RAG #2</span>
+                            <div class="calendar-day class-frontend"
+                                style="background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%); border:none;">
+                                <span class="day-num" style="color:white">4</span><span class="class-tag">S3</span>
                             </div>
                             <div class="calendar-day"><span class="day-num">5</span></div>
                             <div class="calendar-day"><span class="day-num">6</span></div>
                             <div class="calendar-day"><span class="day-num">7</span></div>
                             <div class="calendar-day"><span class="day-num">8</span></div>
 
-                            <div class="calendar-day"><span class="day-num">9</span></div>
+                            <div class="calendar-day class-cloud"
+                                style="background: linear-gradient(135deg, #00A896 0%, #4ECDC4 100%); border:none;">
+                                <span class="day-num" style="color:white">9</span><span class="class-tag">S4</span>
+                            </div>
                             <div class="calendar-day"><span class="day-num">10</span></div>
-                            <div class="calendar-day"><span class="day-num">11</span></div>
+                            <div class="calendar-day class-cloud"
+                                style="background: linear-gradient(135deg, #00A896 0%, #4ECDC4 100%); border:none;">
+                                <span class="day-num" style="color:white">11</span><span class="class-tag">S5</span>
+                            </div>
                             <div class="calendar-day"><span class="day-num">12</span></div>
                             <div class="calendar-day"><span class="day-num">13</span></div>
                             <div class="calendar-day"><span class="day-num">14</span></div>
                             <div class="calendar-day"><span class="day-num">15</span></div>
 
-                            <div class="calendar-day"><span class="day-num">16</span></div>
+                            <div class="calendar-day class-cloud"
+                                style="background: linear-gradient(135deg, #00A896 0%, #4ECDC4 100%); border:none;">
+                                <span class="day-num" style="color:white">16</span><span class="class-tag">S6</span>
+                            </div>
                             <div class="calendar-day"><span class="day-num">17</span></div>
                             <div class="calendar-day"><span class="day-num">18</span></div>
                             <div class="calendar-day"><span class="day-num">19</span></div>
                             <div class="calendar-day"><span class="day-num">20</span></div>
                             <div class="calendar-day"><span class="day-num">21</span></div>
                             <div class="calendar-day"><span class="day-num">22</span></div>
-
                             <div class="calendar-day"><span class="day-num">23</span></div>
                             <div class="calendar-day"><span class="day-num">24</span></div>
                             <div class="calendar-day"><span class="day-num">25</span></div>
