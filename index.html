@@ -7531,10 +7531,12 @@
                 tabla.style.display = 'none';
                 msgError.style.display = 'none';
 
-                const response = await fetch(sheetURL_Live);
+                // --- AQUÍ ESTÁ EL TRUCO: cache_buster ---
+                // Usamos Date.now() para que el link sea único cada milisegundo
+                const response = await fetch(sheetURL_Live + '&cache_buster=' + Date.now());
                 const csv = await response.text();
 
-                // --- PARSER ROBUSTO (Maneja comillas y comas dentro de celdas) ---
+                // --- PARSER ROBUSTO ---
                 function parseCSVLine(line) {
                     const result = [];
                     let current = '';
@@ -7553,12 +7555,12 @@
                 const filas = lineas.map(parseCSVLine);
                 const [encabezados, ...datos] = filas;
 
-                // Identificar índices de columnas clave dinámicamente
+                // Índices dinámicos
                 const idxFecha = encabezados.findIndex(h => h.toLowerCase().includes('fecha'));
                 const idxLink = encabezados.findIndex(h => h.toLowerCase().includes('link'));
                 const idxEstado = encabezados.findIndex(h => h.toLowerCase().includes('estado'));
                 const idxAsist = encabezados.findIndex(h => h.toLowerCase().includes('asistencia'));
-                const idxGrab = encabezados.findIndex(h => h.toLowerCase().includes('grab')); // Grabación
+                const idxGrab = encabezados.findIndex(h => h.toLowerCase().includes('grab'));
 
                 // 1. DIBUJAR ENCABEZADOS
                 let headerHTML = '<tr>';
@@ -7568,25 +7570,20 @@
                 headerHTML += '</tr>';
                 tabla.querySelector('thead').innerHTML = headerHTML;
 
-                // 2. DIBUJAR CUERPO CON LÓGICA DE COLORES
+                // 2. DIBUJAR CUERPO
                 let bodyHTML = '';
 
                 datos.forEach(fila => {
-                    // Si la fila está vacía, saltar
                     if (!fila[0]) return;
 
                     const fechaTexto = fila[idxFecha] || '';
-                    const linkClase = fila[idxLink] || '';
                     const estadoManual = (fila[idxEstado] || '').toLowerCase();
-                    const linkAsistencia = fila[idxAsist] || '';
-                    const linkGrabacion = fila[idxGrab] || '';
 
-                    // Lógica de Estado (Pasada, Feriado, Cancelada)
+                    // Lógica de fecha para saber si ya pasó
                     let claseYaPaso = false;
                     if (fechaTexto.includes('/')) {
                         const partes = fechaTexto.split('/'); // DD/MM/YYYY
                         if (partes.length === 3) {
-                            // Crear fecha fin del día de la clase (23:59:59)
                             const fechaClase = new Date(partes[2], partes[1] - 1, partes[0], 23, 59, 59);
                             const hoy = new Date();
                             if (hoy > fechaClase) claseYaPaso = true;
@@ -7594,19 +7591,16 @@
                     }
 
                     let estadoFinal = "programada";
-                    if (estadoManual.includes('feriado')) estadoFinal = "feriado";
+                    if (estadoManual.includes('feriado') || estadoManual.includes('no hubo')) estadoFinal = "feriado";
                     else if (estadoManual.includes('cancelada')) estadoFinal = "cancelada";
                     else if (claseYaPaso || estadoManual.includes('conclui')) estadoFinal = "concluida";
 
-                    // Construir la fila HTML
-                    // Agregamos data-fecha para el filtro
                     bodyHTML += `<tr class="live-row" data-fecha="${fechaTexto}">`;
 
                     fila.forEach((celda, index) => {
                         let contenido = celda.replace(/"/g, '');
                         let estiloCelda = 'text-align: center;';
 
-                        // --- COLUMNA LINK (BOTONES AZUL, ROJO, NARANJA) ---
                         if (index === idxLink) {
                             if (estadoFinal === "concluida") {
                                 contenido = `<span class="btn-status red">🔴 Clase pasada</span>`;
@@ -7618,36 +7612,21 @@
                                 contenido = `<span style="color:#ccc">-</span>`;
                             }
                         }
-
-                        // --- COLUMNA ESTADO (BADGES) ---
                         else if (index === idxEstado) {
-                            if (estadoFinal === "concluida")
-                                contenido = `<span class="badge-status success">✓ concluida</span>`;
-                            else if (estadoFinal === "feriado")
-                                contenido = `<span class="badge-status warning">🎉 FERIADO</span>`;
-                            else if (estadoFinal === "cancelada")
-                                contenido = `<span class="badge-status error">ℹ️ CANCELADA</span>`;
-                            else
-                                contenido = `<span class="badge-status info">activa</span>`;
+                            if (estadoFinal === "concluida") contenido = `<span class="badge-status success">✓ concluida</span>`;
+                            else if (estadoFinal === "feriado") contenido = `<span class="badge-status warning">🎉 FERIADO</span>`;
+                            else if (estadoFinal === "cancelada") contenido = `<span class="badge-status error">ℹ️ CANCELADA</span>`;
+                            else contenido = `<span class="badge-status info">activa</span>`;
                         }
-
-                        // --- COLUMNA ASISTENCIA (VERDE) ---
                         else if (index === idxAsist) {
-                            if (celda.includes('http')) {
-                                contenido = `<a href="${celda}" target="_blank" class="btn-status green">📊 Excel</a>`;
-                            } else { contenido = `<span style="color:#ccc">-</span>`; }
+                            if (celda.includes('http')) contenido = `<a href="${celda}" target="_blank" class="btn-status green">📊 Excel</a>`;
+                            else contenido = `<span style="color:#ccc">-</span>`;
                         }
-
-                        // --- COLUMNA GRABACIÓN (VIOLETA) ---
                         else if (index === idxGrab) {
-                            if (celda.includes('http')) {
-                                contenido = `<a href="${celda}" target="_blank" class="btn-status purple">🎬 Ver Grabación</a>`;
-                            } else if (estadoFinal === "concluida") {
-                                contenido = `<span style="font-size:11px; color:#999;">Pendiente</span>`;
-                            } else { contenido = `<span style="color:#ccc">-</span>`; }
+                            if (celda.includes('http')) contenido = `<a href="${celda}" target="_blank" class="btn-status purple">🎬 Ver Grabación</a>`;
+                            else if (estadoFinal === "concluida") contenido = `<span style="font-size:11px; color:#999;">Pendiente</span>`;
+                            else contenido = `<span style="color:#ccc">-</span>`;
                         }
-
-                        // --- COLUMNA FECHA (Color destacado) ---
                         else if (index === idxFecha) {
                             estiloCelda += 'font-weight: 700; color: var(--azul-principal);';
                         }
@@ -7661,7 +7640,6 @@
                 loadingMsg.style.display = 'none';
                 tabla.style.display = 'table';
 
-                // Ejecutar filtro inicial
                 filterLiveClassesSimple();
 
             } catch (error) {
@@ -7670,7 +7648,7 @@
             }
         }
 
-        // --- FUNCIÓN DE FILTRADO (IGUAL QUE ANTES, PERO SIN PAGINACIÓN) ---
+        // --- FILTROS ---
         function filterLiveClassesSimple() {
             const dateInput = document.getElementById('filterDateLive').value;
             const viewMode = document.getElementById('filterProximas').value;
@@ -7707,7 +7685,7 @@
 
         function clearLiveFiltersSimple() {
             document.getElementById('filterDateLive').value = '';
-            document.getElementById('filterProximas').value = 'todas'; // O 'proximas' si prefieres ese default
+            document.getElementById('filterProximas').value = 'todas';
             filterLiveClassesSimple();
         }
 
