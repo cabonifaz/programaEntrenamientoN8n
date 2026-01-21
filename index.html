@@ -5792,6 +5792,385 @@
             font-weight: 600 !important;
             font-size: 15px !important;
         }
+
+        /* --- NUEVO DISEÑO TEMARIO (ROADMAP) --- */
+        .syllabus-roadmap {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .roadmap-week-label {
+            display: inline-block;
+            background: var(--azul-petróleo);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 14px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 10px rgba(0, 108, 142, 0.3);
+        }
+
+        .session-modern-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .session-modern-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Borde lateral de color */
+        .session-modern-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 6px;
+            background: var(--azul-principal);
+            /* Default */
+        }
+
+        .session-modern-card.jean::before {
+            background: #FF9F43;
+        }
+
+        /* Naranja */
+        .session-modern-card.jp::before {
+            background: #2E86DE;
+        }
+
+        /* Azul */
+        .session-modern-card.gustavo::before {
+            background: #00A896;
+        }
+
+        /* Verde */
+        .session-modern-card.duo::before {
+            background: #6C63FF;
+        }
+
+        /* Violeta */
+
+        .card-header-modern {
+            padding: 25px 30px;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #FAFCFF;
+        }
+
+        .session-meta h4 {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--azul-petróleo);
+            margin: 0;
+        }
+
+        .session-meta span {
+            font-size: 13px;
+            color: var(--gris-medio);
+            font-weight: 600;
+            display: block;
+            margin-top: 4px;
+        }
+
+        .instructor-pill {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: white;
+            padding: 6px 15px;
+            border-radius: 50px;
+            border: 1px solid #eee;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--gris-oscuro);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .instructor-avatar-mini {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--azul-muy-claro);
+            color: var(--azul-principal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 900;
+        }
+
+        .card-body-modern {
+            padding: 30px;
+        }
+
+        .module-block {
+            margin-bottom: 25px;
+        }
+
+        .module-block:last-child {
+            margin-bottom: 0;
+        }
+
+        .module-title {
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--naranja-oscuro);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .topics-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .topic-item {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 12px;
+            font-size: 14px;
+            color: var(--gris-oscuro);
+            line-height: 1.6;
+        }
+
+        .topic-item i {
+            color: var(--verde-azulado);
+            margin-top: 4px;
+            flex-shrink: 0;
+        }
+
+        /* Chips de Tecnología */
+        .tech-chips {
+            display: flex;
+            gap: 8px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .tech-chip {
+            font-size: 11px;
+            padding: 4px 10px;
+            background: #F1F2F6;
+            border-radius: 4px;
+            color: #57606f;
+            font-weight: 600;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .card-header-modern {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+        }
+
+        /* --- NUEVOS ESTILOS SCHEDULE (TICKETS) --- */
+        .schedule-event-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .event-card {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .event-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 144, 188, 0.1);
+            border-color: var(--azul-claro);
+        }
+
+        /* Barra lateral de color */
+        .event-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 5px;
+            background: var(--gris-claro);
+        }
+
+        .event-card.jean::before {
+            background: #FF9F43;
+        }
+
+        .event-card.jp::before {
+            background: #2E86DE;
+        }
+
+        .event-card.gustavo::before {
+            background: #00A896;
+        }
+
+        .event-card.duo::before {
+            background: #6C63FF;
+        }
+
+        /* Columna Fecha (Izquierda) */
+        .event-date-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .event-day {
+            font-size: 32px;
+            font-weight: 900;
+            line-height: 1;
+            color: var(--azul-petróleo);
+        }
+
+        .event-month {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--gris-medio);
+            margin-top: 4px;
+        }
+
+        /* Columna Info (Centro) */
+        .event-info {
+            flex: 1;
+        }
+
+        .event-badge {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 4px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .event-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--gris-oscuro);
+            margin-bottom: 6px;
+        }
+
+        .event-instructor {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--gris-medio);
+            font-weight: 600;
+        }
+
+        .instructor-dot {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 10px;
+            font-weight: 900;
+        }
+
+        /* Columna Acción (Derecha) */
+        .event-action {
+            text-align: right;
+            min-width: 120px;
+        }
+
+        .event-time {
+            display: block;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--azul-principal);
+            margin-bottom: 8px;
+        }
+
+        .btn-calendar {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            background: #F4F6F8;
+            color: var(--gris-oscuro);
+            transition: all 0.2s;
+        }
+
+        .btn-calendar:hover {
+            background: var(--azul-petróleo);
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .event-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+                padding: 20px;
+            }
+
+            .event-date-box {
+                flex-direction: row;
+                gap: 10px;
+                margin-bottom: 5px;
+            }
+
+            .event-day {
+                font-size: 24px;
+            }
+
+            .event-action {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-top: 10px;
+                padding-top: 15px;
+                border-top: 1px dashed #eee;
+            }
+        }
     </style>
 </head>
 
@@ -5962,125 +6341,278 @@
 
             <div class="syllabus-inline-container" id="temario-detalle">
                 <div class="syllabus-inline-header">
-                    <div class="section-badge" style="margin-bottom: 15px;">📚 HOJA DE RUTA</div>
-                    <h3>Estructura Académica por Semana</h3>
+                    <div class="section-badge" style="margin-bottom: 15px;">📚 HOJA DE RUTA TÉCNICA</div>
+                    <h3>Plan de Estudios Especializado</h3>
                     <p style="color: var(--gris-medio); margin-top: 10px;">
-                        Distribución de los 8 módulos en 4 sesiones intensivas
+                        5 Módulos intensivos impartidos por arquitectos de soluciones
                     </p>
                 </div>
 
-                <div class="table-responsive"
-                    style="box-shadow: 0 15px 40px rgba(0,0,0,0.08); border-radius: 20px; overflow: hidden; border: 1px solid rgba(0,0,0,0.05);">
-                    <table class="syllabus-table" style="width: 100%; min-width: 700px; border-collapse: collapse;">
-                        <thead>
-                            <tr style="background: var(--azul-petróleo); color: white; text-align: center;">
-                                <th style="padding: 20px; width: 15%; text-align: center;">Semana</th>
-                                <th style="padding: 20px; width: 15%; text-align: center;">Fecha</th>
-                                <th style="padding: 20px; width: 10%; text-align: center;">Sesión</th>
-                                <th style="padding: 20px; width: 60%; text-align: center;">Módulos y Temas Clave</th>
-                            </tr>
-                        </thead>
-                        <tbody style="background: white;">
+                <div class="syllabus-roadmap">
 
-                            <tr style="border-bottom: 1px solid #eee; transition: background 0.3s;"
-                                onmouseover="this.style.background='#FFF9F0'"
-                                onmouseout="this.style.background='white'">
-                                <td
-                                    style="padding: 20px; font-weight: 800; color: var(--naranja-oscuro); text-align: center;">
-                                    Semana 1</td>
-                                <td
-                                    style="padding: 20px; font-weight: 600; color: var(--gris-oscuro); text-align: center;">
-                                    Mié 28 Ene</td>
-                                <td style="padding: 20px; text-align: center;">
-                                    <span
-                                        style="background: var(--naranja-muy-claro); color: var(--naranja-principal); padding: 5px 12px; border-radius: 50px; font-weight: 800; font-size: 13px;">S1</span>
-                                </td>
-                                <td style="padding: 20px;">
-                                    <div style="font-weight: 700; color: var(--azul-petróleo); margin-bottom: 5px;">
-                                        Módulos 1 y 2: Productividad & Integración</div>
-                                    <ul
-                                        style="margin: 0; padding-left: 20px; color: var(--gris-medio); font-size: 14px; line-height: 1.6;">
-                                        <li>n8n Empresarial: Patrones (Event/Batch) y Casos reales (Banca/Retail).</li>
-                                        <li>Conectividad: APIs REST, Auth (OAuth2/JWT) y Bases de Datos (SQL).</li>
-                                    </ul>
-                                </td>
-                            </tr>
+                    <div class="roadmap-week">
+                        <div class="roadmap-week-label">Semana 1</div>
 
-                            <tr style="border-bottom: 1px solid #eee; transition: background 0.3s;"
-                                onmouseover="this.style.background='#F0FAFF'"
-                                onmouseout="this.style.background='white'">
-                                <td rowspan="2"
-                                    style="padding: 20px; font-weight: 800; color: var(--azul-principal); border-right: 2px solid #f0f0f0; text-align: center; vertical-align: middle;">
-                                    Semana 2</td>
-                                <td
-                                    style="padding: 20px; font-weight: 600; color: var(--gris-oscuro); text-align: center;">
-                                    Lun 02 Feb</td>
-                                <td style="padding: 20px; text-align: center;">
-                                    <span
-                                        style="background: var(--azul-muy-claro); color: var(--azul-principal); padding: 5px 12px; border-radius: 50px; font-weight: 800; font-size: 13px;">S2</span>
-                                </td>
-                                <td style="padding: 20px;">
-                                    <div style="font-weight: 700; color: var(--azul-petróleo); margin-bottom: 5px;">
-                                        Módulos 3 y 4: Cloud & DevOps</div>
-                                    <ul
-                                        style="margin: 0; padding-left: 20px; color: var(--gris-medio); font-size: 14px; line-height: 1.6;">
-                                        <li>Cloud Híbrido: Orquestación con AWS Lambda y Amazon S3.</li>
-                                        <li>Operaciones: Diseño mantenible, Sub-workflows, Logs y Manejo de errores.
+                        <div class="session-modern-card jean">
+                            <div class="card-header-modern">
+                                <div class="session-meta">
+                                    <h4>Sesión 1: Fundamentos & Arquitectura</h4>
+                                    <span>📅 Miércoles 28 Enero | 6:30pm - 8:30pm</span>
+                                </div>
+                                <div class="instructor-pill">
+                                    <div class="instructor-avatar-mini" style="background:#FFF3E0; color:#E67E22;">JS
+                                    </div>
+                                    Jean Smith Velasquez
+                                </div>
+                            </div>
+                            <div class="card-body-modern">
+                                <div class="module-block">
+                                    <div class="module-title"><i class="fa-solid fa-cube"></i> MÓDULO 1: INTRODUCCIÓN Y
+                                        FUNDAMENTOS</div>
+                                    <ul class="topics-list">
+                                        <li class="topic-item">
+                                            <i class="fa-solid fa-check-circle"></i>
+                                            <div>
+                                                <strong>n8n Empresarial:</strong> Arquitectura como orquestador de
+                                                procesos (vs herramienta low-code).
+                                            </div>
+                                        </li>
+                                        <li class="topic-item">
+                                            <i class="fa-solid fa-check-circle"></i>
+                                            <div>
+                                                <strong>Patrones de Automatización:</strong> Event-driven (Webhooks),
+                                                Batch (Cron) y Sync (Real-time).
+                                            </div>
+                                        </li>
+                                        <li class="topic-item">
+                                            <i class="fa-solid fa-check-circle"></i>
+                                            <div>
+                                                <strong>Casos Reales:</strong> Análisis de escenarios en Planillas,
+                                                Banca y Retail.
+                                            </div>
                                         </li>
                                     </ul>
-                                </td>
-                            </tr>
-
-                            <tr style="border-bottom: 1px solid #eee; transition: background 0.3s;"
-                                onmouseover="this.style.background='#F0FAFF'"
-                                onmouseout="this.style.background='white'">
-                                <td
-                                    style="padding: 20px; font-weight: 600; color: var(--gris-oscuro); text-align: center;">
-                                    Mié 04 Feb</td>
-                                <td style="padding: 20px; text-align: center;">
-                                    <span
-                                        style="background: var(--azul-muy-claro); color: var(--azul-principal); padding: 5px 12px; border-radius: 50px; font-weight: 800; font-size: 13px;">S3</span>
-                                </td>
-                                <td style="padding: 20px;">
-                                    <div style="font-weight: 700; color: var(--azul-petróleo); margin-bottom: 5px;">
-                                        Módulos 5 y 6: IA Generativa & RAG</div>
-                                    <ul
-                                        style="margin: 0; padding-left: 20px; color: var(--gris-medio); font-size: 14px; line-height: 1.6;">
-                                        <li>GPT en Producción: Prompt Engineering de negocio y Salidas JSON.</li>
-                                        <li>RAG Corporativo: Arquitectura de conocimiento y Contexto seguro.</li>
+                                </div>
+                                <div class="module-block"
+                                    style="margin-top: 20px; padding-top: 20px; border-top: 1px dashed #eee;">
+                                    <div class="module-title"><i class="fa-solid fa-network-wired"></i> MÓDULO 2 (PARTE
+                                        A): CONECTIVIDAD</div>
+                                    <ul class="topics-list">
+                                        <li class="topic-item">
+                                            <i class="fa-solid fa-code"></i>
+                                            <div>
+                                                <strong>Transformación de Datos:</strong> Normalización con nodos de
+                                                función y expresiones regex.
+                                            </div>
+                                        </li>
+                                        <li class="topic-item">
+                                            <i class="fa-solid fa-globe"></i>
+                                            <div>
+                                                <strong>APIs REST & Auth:</strong> Consumo HTTP, manipulación JSON y
+                                                seguridad (OAuth2, JWT, API Key).
+                                            </div>
+                                        </li>
                                     </ul>
-                                </td>
-                            </tr>
+                                    <div class="tech-chips">
+                                        <span class="tech-chip">Webhooks</span>
+                                        <span class="tech-chip">Cron</span>
+                                        <span class="tech-chip">JSON</span>
+                                        <span class="tech-chip">OAuth2</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                            <tr style="transition: background 0.3s;" onmouseover="this.style.background='#F3F0FF'"
-                                onmouseout="this.style.background='white'">
-                                <td style="padding: 20px; font-weight: 800; color: var(--violeta); text-align: center;">
-                                    Semana 3</td>
-                                <td
-                                    style="padding: 20px; font-weight: 600; color: var(--gris-oscuro); text-align: center;">
-                                    Lun 09 Feb</td>
-                                <td style="padding: 20px; text-align: center;">
-                                    <span
-                                        style="background: #E3F2FD; color: var(--violeta); padding: 5px 12px; border-radius: 50px; font-weight: 800; font-size: 13px;">S4</span>
-                                </td>
-                                <td style="padding: 20px;">
-                                    <div style="font-weight: 700; color: var(--azul-petróleo); margin-bottom: 5px;">
-                                        Módulos 7 y 8: Agentes & Estrategia</div>
-                                    <ul
-                                        style="margin: 0; padding-left: 20px; color: var(--gris-medio); font-size: 14px; line-height: 1.6;">
-                                        <li>Agentes Autónomos: Integración WhatsApp (Meta/Twilio) y Webhooks.</li>
-                                        <li>Taller Final: Análisis de riesgo, Costos y Decisión tecnológica (n8n vs
-                                            Código).</li>
+                    <div class="roadmap-week">
+                        <div class="roadmap-week-label">Semana 2</div>
+
+                        <div class="session-modern-card jp">
+                            <div class="card-header-modern">
+                                <div class="session-meta">
+                                    <h4>Sesión 2: Ingeniería de Datos & Cloud</h4>
+                                    <span>📅 Lunes 02 Febrero | 6:30pm - 8:30pm</span>
+                                </div>
+                                <div class="instructor-pill">
+                                    <div class="instructor-avatar-mini" style="background:#E3F2FD; color:#1565C0;">JP
+                                    </div>
+                                    Juan Pablo David
+                                </div>
+                            </div>
+                            <div class="card-body-modern">
+                                <div class="module-block">
+                                    <div class="module-title"><i class="fa-solid fa-database"></i> MÓDULO 2 (PARTE B) &
+                                        MÓDULO 3: CLOUD OPS</div>
+                                    <ul class="topics-list">
+                                        <li class="topic-item">
+                                            <i class="fa-solid fa-server"></i>
+                                            <div>
+                                                <strong>Bases de Datos:</strong> Operaciones CRUD en SQL Server y
+                                                PostgreSQL.
+                                            </div>
+                                        </li>
+                                        <li class="topic-item">
+                                            <i class="fa-brands fa-aws"></i>
+                                            <div>
+                                                <strong>Orquestación Cloud:</strong> Delegación de lógica serverless a
+                                                AWS Lambda y persistencia en S3.
+                                            </div>
+                                        </li>
+                                        <li class="topic-item">
+                                            <i class="fa-solid fa-shield-halved"></i>
+                                            <div>
+                                                <strong>Fiabilidad:</strong> Manejo de errores (Error Trigger),
+                                                políticas de reintento y control de flujo.
+                                            </div>
+                                        </li>
+                                        <li class="topic-item">
+                                            <i class="fa-solid fa-diagram-project"></i>
+                                            <div>
+                                                <strong>Escalabilidad:</strong> Diseño de Sub-workflows reutilizables y
+                                                monitoreo de logs.
+                                            </div>
+                                        </li>
                                     </ul>
-                                </td>
-                            </tr>
+                                    <div class="tech-chips">
+                                        <span class="tech-chip">SQL Server</span>
+                                        <span class="tech-chip">AWS Lambda</span>
+                                        <span class="tech-chip">S3</span>
+                                        <span class="tech-chip">Error Handling</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                        </tbody>
-                    </table>
+                        <div class="session-modern-card gustavo" style="margin-top: 30px;">
+                            <div class="card-header-modern">
+                                <div class="session-meta">
+                                    <h4>Sesión 3: Especialización en IA & RAG</h4>
+                                    <span>📅 Miércoles 04 Febrero | 6:30pm - 8:30pm</span>
+                                </div>
+                                <div class="instructor-pill">
+                                    <div class="instructor-avatar-mini" style="background:#E0F2F1; color:#00897B;">GM
+                                    </div>
+                                    Gustavo Moreno
+                                </div>
+                            </div>
+                            <div class="card-body-modern">
+                                <div class="module-block">
+                                    <div class="module-title"><i class="fa-solid fa-brain"></i> MÓDULO 4: GEN_AI &
+                                        VECTOR SEARCH</div>
+                                    <ul class="topics-list">
+                                        <li class="topic-item">
+                                            <i class="fa-solid fa-microchip"></i>
+                                            <div>
+                                                <strong>LLMs en Producción:</strong> Integración de Amazon Bedrock como
+                                                componente de decisión lógica.
+                                            </div>
+                                        </li>
+                                        <li class="topic-item">
+                                            <i class="fa-solid fa-terminal"></i>
+                                            <div>
+                                                <strong>Prompt Engineering:</strong> Técnicas de negocio para garantizar
+                                                respuestas precisas y salidas JSON estructuradas.
+                                            </div>
+                                        </li>
+                                        <li class="topic-item">
+                                            <i class="fa-solid fa-magnifying-glass-chart"></i>
+                                            <div>
+                                                <strong>Arquitectura RAG:</strong> Fragmentación de documentos, búsqueda
+                                                semántica y conexión con Weaviate.
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <div class="tech-chips">
+                                        <span class="tech-chip">Amazon Bedrock</span>
+                                        <span class="tech-chip">Weaviate</span>
+                                        <span class="tech-chip">RAG</span>
+                                        <span class="tech-chip">JSON Parsing</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="roadmap-week">
+                        <div class="roadmap-week-label">Semana 3</div>
+
+                        <div class="session-modern-card duo">
+                            <div class="card-header-modern">
+                                <div class="session-meta">
+                                    <h4>Sesión 4: Agentes & Estrategia</h4>
+                                    <span>📅 Lunes 09 Febrero | 6:30pm - 8:30pm</span>
+                                </div>
+                                <div class="instructor-pill">
+                                    <div class="instructor-avatar-mini" style="background:#F3E5F5; color:#8E44AD;">JP
+                                    </div>
+                                    <div class="instructor-avatar-mini"
+                                        style="background:#FFF3E0; color:#E67E22; margin-left: -10px; border: 2px solid white;">
+                                        JS</div>
+                                    <span style="margin-left: 5px;">Juan Pablo / Jean</span>
+                                </div>
+                            </div>
+                            <div class="card-body-modern">
+                                <div class="module-block">
+                                    <div class="module-title"><i class="fa-solid fa-robot"></i> MÓDULO 4 (CONT): AGENTES
+                                    </div>
+                                    <ul class="topics-list">
+                                        <li class="topic-item">
+                                            <i class="fa-brands fa-whatsapp"></i>
+                                            <div>
+                                                <strong>Agentes WhatsApp:</strong> Integración API Cloud Meta con
+                                                herramientas dinámicas (Tools).
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="module-block"
+                                    style="margin-top: 20px; padding-top: 20px; border-top: 1px dashed #eee;">
+                                    <div class="module-title"><i class="fa-solid fa-chess"></i> MÓDULO 5: CONSULTORÍA Y
+                                        ESTRATEGIA</div>
+                                    <ul class="topics-list">
+                                        <li class="topic-item">
+                                            <i class="fa-solid fa-scale-balanced"></i>
+                                            <div>
+                                                <strong>Criterios de Decisión:</strong> n8n vs Código. Evaluación de
+                                                costos, escalabilidad y mantenimiento.
+                                            </div>
+                                        </li>
+                                        <li class="topic-item">
+                                            <i class="fa-solid fa-rotate"></i>
+                                            <div>
+                                                <strong>Modernización Legacy:</strong> Reemplazo de automatizaciones
+                                                Win32/EC2 (.exe, .bat, .ps1).
+                                            </div>
+                                        </li>
+                                        <li class="topic-item">
+                                            <i class="fa-solid fa-flask"></i>
+                                            <div>
+                                                <strong>Taller Final:</strong> Resolución de un escenario de negocio de
+                                                alta complejidad.
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <div class="tech-chips">
+                                        <span class="tech-chip">WhatsApp API</span>
+                                        <span class="tech-chip">AI Tools</span>
+                                        <span class="tech-chip">Legacy Migration</span>
+                                        <span class="tech-chip">Cost Analysis</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
-
+                <div style="text-align: center; margin-top: 50px;">
+                    <a href="#schedule" class="btn-primary"
+                        style="display: inline-flex; align-items: center; gap: 10px;">
+                        <i class="fa-regular fa-calendar-check"></i> Ver en el Calendario
+                    </a>
+                </div>
             </div>
+
     </div>
     </section>
 
@@ -6095,7 +6627,7 @@
         <div class="schedule-container">
             <div class="schedule-tabs">
                 <button class="tab-button active" onclick="showSchedule('semana1')">
-                    Semana 1<br><small>28 Ene - 01 Feb</small>
+                    Semana 1<br><small>26 Ene - 01 Feb</small>
                 </button>
                 <button class="tab-button" onclick="showSchedule('semana2')">
                     Semana 2<br><small>02 Feb - 08 Feb</small>
@@ -6110,26 +6642,41 @@
                 <div class="schedule-content active" id="semana1Schedule">
                     <div class="schedule-header" style="background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);">
                         <div class="schedule-icon"><i class="fa-solid fa-play" style="color: white;"></i></div>
-                        <div>SESIÓN 1: PRODUCTIVIDAD & CONECTIVIDAD</div>
+                        <div>SEMANA 1 • INICIO</div>
                     </div>
                     <div class="schedule-table-wrapper">
-                        <table>
+                        <table style="width: 100%; border-collapse: separate; border-spacing: 0;">
                             <thead>
                                 <tr>
                                     <th>Hora</th>
-                                    <th>Miércoles 28 Ene</th>
+                                    <th style="opacity: 0.5;">Lunes 26</th>
+                                    <th style="opacity: 0.5;">Martes 27</th>
+                                    <th style="background: #FF8E53; color: white;">Miércoles 28</th>
+                                    <th style="opacity: 0.5;">Jueves 29</th>
+                                    <th style="opacity: 0.5;">Viernes 30</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td class="time-cell">6:30pm - 8:30pm</td>
-                                    <td>
-                                        <span class="class-badge csharp" style="background: #FF6B6B;">Sesión
-                                            1</span>
-                                        <div style="font-size:12px; margin-top:5px; line-height:1.4;">
-                                            n8n Empresarial<br>APIs REST & Auth
+                                    <td style="background: #f9f9f9; color: #ccc; text-align: center;">-</td>
+                                    <td style="background: #f9f9f9; color: #ccc; text-align: center;">-</td>
+
+                                    <td
+                                        style="text-align: center; background: #FFF3E0; border-bottom: 3px solid #FFCC80;">
+                                        <span class="class-badge csharp"
+                                            style="background: #E67E22; margin-bottom: 8px;">Sesión 1</span>
+                                        <div
+                                            style="font-weight: 800; color: var(--azul-petróleo); margin-bottom: 4px; font-size: 13px;">
+                                            Fundamentos</div>
+                                        <div style="font-size: 12px; color: var(--gris-medio);">
+                                            <i class="fa-solid fa-user" style="color: #E67E22;"></i> Instructor:
+                                            <strong>Jean</strong>
                                         </div>
                                     </td>
+
+                                    <td style="background: #f9f9f9; color: #ccc; text-align: center;">-</td>
+                                    <td style="background: #f9f9f9; color: #ccc; text-align: center;">-</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -6137,37 +6684,56 @@
                 </div>
 
                 <div class="schedule-content" id="semana2Schedule">
-                    <div class="schedule-header" style="background: linear-gradient(135deg, #FF9F43 0%, #FECA57 100%);">
-                        <div class="schedule-icon"><i class="fa-solid fa-share-nodes" style="color: white;"></i>
-                        </div>
-                        <div>SESIONES 2 y 3: DATA OPS & IA</div>
+                    <div class="schedule-header" style="background: linear-gradient(135deg, #00A896 0%, #4ECDC4 100%);">
+                        <div class="schedule-icon"><i class="fa-solid fa-cloud" style="color: white;"></i></div>
+                        <div>SEMANA 2 • INTENSIVA</div>
                     </div>
                     <div class="schedule-table-wrapper">
-                        <table>
+                        <table style="width: 100%; border-collapse: separate; border-spacing: 0;">
                             <thead>
                                 <tr>
                                     <th>Hora</th>
-                                    <th>Lunes 02 Feb</th>
-                                    <th>Miércoles 04 Feb</th>
+                                    <th style="background: #0090BC; color: white;">Lunes 02</th>
+                                    <th style="opacity: 0.5;">Martes 03</th>
+                                    <th style="background: #00A896; color: white;">Miércoles 04</th>
+                                    <th style="opacity: 0.5;">Jueves 05</th>
+                                    <th style="opacity: 0.5;">Viernes 06</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td class="time-cell">6:30pm - 8:30pm</td>
-                                    <td>
-                                        <span class="class-badge csharp" style="background: #FF9F43;">Sesión
-                                            2</span>
-                                        <div style="font-size:12px; margin-top:5px; line-height:1.4;">
-                                            Bases de Datos<br>AWS Lambda & S3
+
+                                    <td
+                                        style="text-align: center; background: #E3F2FD; border-bottom: 3px solid #90CAF9;">
+                                        <span class="class-badge csharp"
+                                            style="background: #1565C0; margin-bottom: 8px;">Sesión 2</span>
+                                        <div
+                                            style="font-weight: 800; color: var(--azul-petróleo); margin-bottom: 4px; font-size: 13px;">
+                                            Cloud & Data</div>
+                                        <div style="font-size: 12px; color: var(--gris-medio);">
+                                            <i class="fa-solid fa-user" style="color: #1565C0;"></i> <strong>Juan
+                                                Pablo</strong>
                                         </div>
                                     </td>
-                                    <td>
-                                        <span class="class-badge csharp" style="background: #00A896;">Sesión
-                                            3</span>
-                                        <div style="font-size:12px; margin-top:5px; line-height:1.4;">
-                                            GPT & JSON<br>RAG Corporativo
+
+                                    <td style="background: #f9f9f9; color: #ccc; text-align: center;">-</td>
+
+                                    <td
+                                        style="text-align: center; background: #E0F2F1; border-bottom: 3px solid #80CBC4;">
+                                        <span class="class-badge csharp"
+                                            style="background: #00897B; margin-bottom: 8px;">Sesión 3</span>
+                                        <div
+                                            style="font-weight: 800; color: var(--azul-petróleo); margin-bottom: 4px; font-size: 13px;">
+                                            IA & RAG</div>
+                                        <div style="font-size: 12px; color: var(--gris-medio);">
+                                            <i class="fa-solid fa-user" style="color: #00897B;"></i>
+                                            <strong>Gustavo</strong>
                                         </div>
                                     </td>
+
+                                    <td style="background: #f9f9f9; color: #ccc; text-align: center;">-</td>
+                                    <td style="background: #f9f9f9; color: #ccc; text-align: center;">-</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -6178,25 +6744,41 @@
                     <div class="schedule-header" style="background: linear-gradient(135deg, #2E86DE 0%, #54A0FF 100%);">
                         <div class="schedule-icon"><i class="fa-solid fa-flag-checkered" style="color: white;"></i>
                         </div>
-                        <div>SESIÓN 4: AGENTES & ESTRATEGIA</div>
+                        <div>SEMANA 3 • CIERRE</div>
                     </div>
                     <div class="schedule-table-wrapper">
-                        <table>
+                        <table style="width: 100%; border-collapse: separate; border-spacing: 0;">
                             <thead>
                                 <tr>
                                     <th>Hora</th>
-                                    <th>Lunes 09 Feb (Final)</th>
+                                    <th style="background: #8E44AD; color: white;">Lunes 09</th>
+                                    <th style="opacity: 0.5;">Martes 10</th>
+                                    <th style="opacity: 0.5;">Miércoles 11</th>
+                                    <th style="opacity: 0.5;">Jueves 12</th>
+                                    <th style="opacity: 0.5;">Viernes 13</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td class="time-cell">6:30pm - 8:30pm</td>
-                                    <td>
-                                        <span class="class-badge sql" style="background: #2E86DE;">Sesión 4</span>
-                                        <div style="font-size:12px; margin-top:5px; line-height:1.4;">
-                                            Agentes WhatsApp<br>Taller Decisión
+
+                                    <td
+                                        style="text-align: center; background: #F3E5F5; border-bottom: 3px solid #CE93D8;">
+                                        <span class="class-badge csharp"
+                                            style="background: #8E44AD; margin-bottom: 8px;">Sesión 4</span>
+                                        <div
+                                            style="font-weight: 800; color: var(--azul-petróleo); margin-bottom: 4px; font-size: 13px;">
+                                            Agentes & Estrategia</div>
+                                        <div style="font-size: 12px; color: var(--gris-medio);">
+                                            <i class="fa-solid fa-user-group" style="color: #8E44AD;"></i> <strong>JP /
+                                                Jean</strong>
                                         </div>
                                     </td>
+
+                                    <td style="background: #f9f9f9; color: #ccc; text-align: center;">-</td>
+                                    <td style="background: #f9f9f9; color: #ccc; text-align: center;">-</td>
+                                    <td style="background: #f9f9f9; color: #ccc; text-align: center;">-</td>
+                                    <td style="background: #f9f9f9; color: #ccc; text-align: center;">-</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -6262,34 +6844,56 @@
 
         <div class="instructors-grid-wrapper">
 
-            <div class="instructor-card-compact blue">
-                <div class="instructor-initials bg-blue">GM</div>
-                <h3 class="instructor-name-compact">Gustavo Moreno</h3>
-                <p class="instructor-role-compact">RAG Architect</p>
-                <span class="specialty-badge">
-                    <i class="fa-solid fa-layer-group"></i> Arquitectura de Datos
-                </span>
-            </div>
-
             <div class="instructor-card-compact orange">
                 <div class="instructor-initials bg-orange">JS</div>
                 <h3 class="instructor-name-compact">Jean Smith Velasquez</h3>
-                <p class="instructor-role-compact">N8n & Automation</p>
-                <span class="specialty-badge">
-                    <i class="fa-solid fa-bolt"></i> Flujos Automatizados
-                </span>
+                <p class="instructor-role-compact">Solutions Architect</p>
+
+                <div style="margin-top: 15px; font-size: 13px; color: var(--gris-oscuro); line-height: 1.5;">
+                    Experto en orquestación de procesos y arquitectura de integración.
+                </div>
+
+                <div style="margin-top: 15px; border-top: 1px solid #eee; padding-top: 15px;">
+                    <span class="specialty-badge" style="background: #FFF3E0; color: #E67E22;">
+                        <i class="fa-solid fa-share-nodes"></i> n8n & APIs
+                    </span>
+                </div>
+            </div>
+
+            <div class="instructor-card-compact blue">
+                <div class="instructor-initials bg-blue">JP</div>
+                <h3 class="instructor-name-compact">Juan Pablo David</h3>
+                <p class="instructor-role-compact">Cloud Engineer</p>
+
+                <div style="margin-top: 15px; font-size: 13px; color: var(--gris-oscuro); line-height: 1.5;">
+                    Especialista en infraestructura AWS, bases de datos y backend serverless.
+                </div>
+
+                <div style="margin-top: 15px; border-top: 1px solid #eee; padding-top: 15px;">
+                    <span class="specialty-badge" style="background: #E3F2FD; color: #1565C0;">
+                        <i class="fa-brands fa-aws"></i> Cloud & DevOps
+                    </span>
+                </div>
             </div>
 
             <div class="instructor-card-compact teal">
-                <div class="instructor-initials bg-teal">JD</div>
-                <h3 class="instructor-name-compact">Juan Pablo David</h3>
-                <p class="instructor-role-compact">GenAI Expert</p>
-                <span class="specialty-badge">
-                    <i class="fa-solid fa-brain"></i> Modelos LLM
-                </span>
+                <div class="instructor-initials bg-teal">GM</div>
+                <h3 class="instructor-name-compact">Gustavo Moreno</h3>
+                <p class="instructor-role-compact">AI Specialist</p>
+
+                <div style="margin-top: 15px; font-size: 13px; color: var(--gris-oscuro); line-height: 1.5;">
+                    Experto en implementación de LLMs, Bedrock y bases de datos vectoriales.
+                </div>
+
+                <div style="margin-top: 15px; border-top: 1px solid #eee; padding-top: 15px;">
+                    <span class="specialty-badge" style="background: #E0F2F1; color: #00897B;">
+                        <i class="fa-solid fa-brain"></i> RAG & LLMs
+                    </span>
+                </div>
             </div>
 
         </div>
+
     </section>
 
 
@@ -6558,11 +7162,11 @@
                 <h2 class="section-title">Programa Nativo en Inteligencia Artificial</h2>
                 <p class="section-description">
                     Olvídate de la programación tradicional. Este curso está diseñado para enseñarte a
-                    <strong>orquestar cerebros digitales</strong> usando las últimas tecnologías de IA Generativa.
+                    <strong>orquestar cerebros digitales</strong> usando infraestructura empresarial de AWS y Weaviate.
                 </p>
             </div>
 
-            <div class="ia-grid-modern">
+            <div class="ia-grid-modern" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
 
                 <div class="ia-card-modern">
                     <div class="ia-icon-circle bg-grad-orange">
@@ -6580,11 +7184,12 @@
                     <div class="ia-icon-circle bg-grad-blue">
                         <i class="fa-solid fa-database"></i>
                     </div>
-                    <h3 class="ia-card-title-modern">Sistemas RAG</h3>
+                    <h3 class="ia-card-title-modern">Sistemas RAG con Weaviate</h3>
                     <p class="ia-card-text-modern">
-                        Domina la <strong>Generación Aumentada por Recuperación</strong>. Conecta tus propios PDF,
-                        Excel y bases de datos a la IA para que responda con información de tu empresa, no de
-                        internet.
+                        Domina la <strong>Generación Aumentada por Recuperación</strong>. Implementa
+                        <strong>Weaviate</strong>
+                        como base de conocimiento vectorial para que la IA responda estrictamente con información de tu
+                        empresa.
                     </p>
                 </div>
 
@@ -6592,22 +7197,11 @@
                     <div class="ia-icon-circle bg-grad-teal">
                         <i class="fa-solid fa-microchip"></i>
                     </div>
-                    <h3 class="ia-card-title-modern">Modelos LLM</h3>
+                    <h3 class="ia-card-title-modern">Modelos vía AWS Bedrock</h3>
                     <p class="ia-card-text-modern">
-                        Aprende a integrar y orquestar modelos de lenguaje avanzados como <strong>GPT-4o, Claude 3.5
-                            Sonnet y Gemini</strong>. Entiende cuándo usar cada uno según el costo y la capacidad.
-                    </p>
-                </div>
-
-                <div class="ia-card-modern">
-                    <div class="ia-icon-circle bg-grad-purple">
-                        <i class="fa-solid fa-share-nodes"></i>
-                    </div>
-                    <h3 class="ia-card-title-modern">Embeddings & Vectores</h3>
-                    <p class="ia-card-text-modern">
-                        Entiende la magia detrás de la búsqueda semántica. Aprenderás a convertir texto en vectores
-                        matemáticos y almacenarlos en <strong>Pinecone o Qdrant</strong> para búsquedas
-                        inteligentes.
+                        Accede a los modelos fundacionales más potentes (Titan, Claude, Llama) a través de
+                        <strong>Amazon Bedrock</strong>. Orquestación segura y escalable sin gestionar múltiples
+                        proveedores.
                     </p>
                 </div>
 
@@ -6616,7 +7210,7 @@
             <div style="text-align: center; margin-top: 60px;">
                 <p style="font-size: 18px; color: var(--azul-petróleo); font-weight: 600;">
                     <i class="fa-solid fa-bolt" style="color: var(--naranja-principal);"></i>
-                    El resultado: Automatizaciones que no solo "hacen", sino que <strong>entienden</strong>.
+                    El resultado: Automatizaciones empresariales seguras, escalables y contextuales.
                 </p>
             </div>
 
@@ -6651,7 +7245,7 @@
             </div>
         </div>
         <div class="footer-bottom">
-            © 2025 Fractal. Todos los derechos reservados. | Programa de Entrenamiento N°13
+            © 2026 Fractal. Todos los derechos reservados.
         </div>
     </footer>
     </div>
