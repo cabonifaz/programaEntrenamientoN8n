@@ -6171,6 +6171,36 @@
                 border-top: 1px dashed #eee;
             }
         }
+
+        /* BOTÓN DE INSCRIPCIÓN EN NAVBAR */
+        .nav-cta-btn {
+            background: linear-gradient(135deg, var(--naranja-principal) 0%, var(--naranja-brillante) 100%);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 14px;
+            margin-right: 15px;
+            box-shadow: 0 4px 15px rgba(240, 128, 33, 0.3);
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(240, 128, 33, 0.4);
+            color: white;
+        }
+
+        /* Ocultar botón del navbar en móviles (se mostrará dentro del menú desplegable) */
+        @media (max-width: 768px) {
+            .nav-cta-btn {
+                display: none;
+            }
+        }
     </style>
 </head>
 
@@ -6181,13 +6211,23 @@
             <div class="logo-section" onclick="scrollToSection('hero')">
                 <img src="https://www.fractal.com.pe/img/fractal-logo.png" alt="Fractal Logo" class="logo-img">
             </div>
-            <div class="menu-wrapper">
+
+            <div class="menu-wrapper" style="display: flex; align-items: center;">
+
+                <a href="https://n8n-server.aplicacion2-team.com/form/4ba46b03-8c1a-4058-a82f-341765204a41"
+                    target="_blank" class="nav-cta-btn">
+                    <i class="fa-solid fa-rocket"></i> Inscribirme
+                </a>
+
                 <button class="mobile-menu-btn" onclick="toggleMenu()">
                     <span></span>
                     <span></span>
                     <span></span>
                 </button>
+
                 <div class="menu-dropdown" id="menuDropdown">
+                    
+
                     <a href="javascript:void(0);" onclick="scrollToSection('hero'); return false;">
                         <span class="menu-icon">🏠</span>
                         <span>Inicio</span>
@@ -6246,9 +6286,11 @@
                     </p>
 
                     <div class="hero-buttons">
-                        <a href="#modules" class="btn-primary">
-                            Comenzar Ahora <i class="fa-solid fa-arrow-right"></i>
+                        <a href="https://n8n-server.aplicacion2-team.com/form/4ba46b03-8c1a-4058-a82f-341765204a41"
+                            target="_blank" class="btn-primary">
+                            Inscribirme al Curso <i class="fa-solid fa-paper-plane"></i>
                         </a>
+
                         <a href="#temario-detalle" class="btn-secondary">
                             Ver Temario
                         </a>
