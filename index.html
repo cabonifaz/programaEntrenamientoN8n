@@ -6201,6 +6201,34 @@
                 display: none;
             }
         }
+
+        /* Estilo para el botón de PPT (Rojo/Rosado) */
+        .btn-status.ppt {
+            background: linear-gradient(135deg, #FF512F, #DD2476);
+            box-shadow: 0 4px 10px rgba(221, 36, 118, 0.3);
+            min-width: 120px;
+        }
+
+        .btn-status.ppt:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(221, 36, 118, 0.4);
+        }
+
+        /* Estilo BRANDING POWERPOINT */
+        .btn-status.ppt {
+            /* Gradiente Naranja/Rojo oficial de PowerPoint */
+            background: linear-gradient(135deg, #D24726 0%, #E85C33 100%);
+            min-width: 120px;
+            box-shadow: 0 4px 10px rgba(210, 71, 38, 0.3);
+            /* Sombra acorde al color */
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-status.ppt:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(210, 71, 38, 0.4);
+            background: linear-gradient(135deg, #C43E1C 0%, #D24726 100%);
+        }
     </style>
 </head>
 
@@ -7883,515 +7911,6 @@
     </script>
 
     <script>
-        // ✅ URL CONFIRMADA QUE FUNCIONA
-        const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSzPzAd2y82o0x_lPEmZ4S0Lr38_sCNOGU24Ra7y1bv3NSzspLVAsIgRjossHVrz_FaQGRS3ZzGzUbr/pub?gid=0&single=true&output=csv';
-
-        async function cargarDatosSheet() {
-            const loadingMsg = document.getElementById('loading-message');
-            const tabla = document.getElementById('tabla-datos');
-
-            try {
-                loadingMsg.innerHTML = '⏳ Cargando datos desde Google Sheets...';
-
-                const response = await fetch(sheetURL, {
-                    method: 'GET',
-                    mode: 'cors',
-                    cache: 'no-cache'
-                });
-
-                if (!response.ok) {
-                    throw new Error(`Error HTTP: ${response.status}`);
-                }
-
-                const csv = await response.text();
-
-                if (!csv || csv.trim() === '') {
-                    throw new Error('CSV vacío');
-                }
-
-                // ✅ PARSER CSV MEJORADO - Maneja comillas correctamente
-                function parseCSVLine(line) {
-                    const result = [];
-                    let current = '';
-                    let inQuotes = false;
-
-                    for (let i = 0; i < line.length; i++) {
-                        const char = line[i];
-                        const nextChar = line[i + 1];
-
-                        if (char === '"') {
-                            if (inQuotes && nextChar === '"') {
-                                // Comilla escapada ""
-                                current += '"';
-                                i++; // Saltar la siguiente comilla
-                            } else {
-                                // Toggle estado de comillas
-                                inQuotes = !inQuotes;
-                            }
-                        } else if (char === ',' && !inQuotes) {
-                            // Fin de campo
-                            result.push(current.trim());
-                            current = '';
-                        } else {
-                            current += char;
-                        }
-                    }
-
-                    // Agregar último campo
-                    result.push(current.trim());
-                    return result;
-                }
-
-                // Dividir en líneas y parsear cada una
-                const lineas = csv.split(/\r?\n/).filter(l => l.trim().length > 0);
-
-                if (lineas.length < 2) {
-                    throw new Error('No hay suficientes datos');
-                }
-
-                const filas = lineas.map(parseCSVLine);
-                const [encabezados, ...datos] = filas;
-
-                console.log('📊 Encabezados:', encabezados);
-                console.log('📊 Primera fila de datos:', datos[0]);
-
-                // Filtrar filas con datos reales
-                const datosReales = datos.filter(fila => {
-                    return fila.some(celda => celda && celda.trim() !== '' && celda.trim() !== '-');
-                });
-
-                console.log('✅ Total de filas con datos:', datosReales.length);
-
-                if (datosReales.length === 0) {
-                    loadingMsg.innerHTML = `
-                <div style="text-align: center; 
-                            padding: 80px 40px;
-                            background: linear-gradient(135deg, var(--azul-muy-claro) 0%, var(--blanco) 100%);
-                            border-radius: 25px;
-                            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);">
-                    
-                    <div style="font-size: 100px; margin-bottom: 30px; animation: fadeIn 1s ease;">📅</div>
-                    
-                    <h3 style="color: var(--azul-petróleo); 
-                               font-size: 32px; 
-                               font-weight: 900; 
-                               margin-bottom: 20px;">
-                        Sin clases programadas en este momento
-                    </h3>
-                    
-                    <p style="color: var(--gris-medio); 
-                              font-size: 18px; 
-                              line-height: 1.7;
-                              max-width: 600px;
-                              margin: 0 auto 30px;">
-                        Los enlaces de las clases en vivo se publicarán próximamente.
-                    </p>
-                </div>
-            `;
-                    return;
-                }
-
-                const thead = tabla.querySelector('thead');
-                const tbody = tabla.querySelector('tbody');
-
-                // Crear encabezados
-                thead.innerHTML = '<tr>' + encabezados.map(h =>
-                    `<th>${h || 'Sin título'}</th>`
-                ).join('') + '</tr>';
-
-                // Crear filas de datos
-                // --- BLOQUE UNIFICADO: SIN CLASE PARA CANCELADAS Y FERIADOS ---
-                tbody.innerHTML = datosReales.map((fila) => {
-                    const fechaIndex = encabezados.findIndex(h => h.toLowerCase().includes('fecha'));
-                    const estadoIndex = encabezados.findIndex(h => h.toLowerCase().includes('estado'));
-
-                    const fechaTexto = fila[fechaIndex] || '';
-                    const estadoManual = (fila[estadoIndex] || '').toLowerCase();
-
-                    // Lógica de fecha actual
-                    let claseYaPaso = false;
-                    if (fechaTexto && fechaTexto !== '-' && fechaTexto !== '') {
-                        const partes = fechaTexto.split('/');
-                        if (partes.length === 3) {
-                            const fechaClaseFin = new Date(partes[2], partes[1] - 1, partes[0], 23, 59, 59);
-                            if (new Date() > fechaClaseFin) claseYaPaso = true;
-                        }
-                    }
-
-                    // DETERMINACIÓN DE ESTADO REAL
-                    let estadoFinal = "programada";
-                    let esFeriado = estadoManual.includes('feriado');
-                    let esCancelada = estadoManual.includes('no hubo') || estadoManual.includes('cancelada');
-                    let esConcluida = !esFeriado && !esCancelada && (claseYaPaso || estadoManual.includes('conclui'));
-
-                    if (esFeriado) estadoFinal = "feriado";
-                    else if (esCancelada) estadoFinal = "cancelada";
-                    else if (esConcluida) estadoFinal = "concluida";
-
-                    return '<tr style="transition: all 0.3s ease;" onmouseover="this.style.backgroundColor=\'#f8f9fa\'" onmouseout="this.style.backgroundColor=\'white\'">' + fila.map((celda, i) => {
-                        const encabezado = (encabezados[i] || '').toLowerCase();
-
-                        // ====== COLUMNA LINK (BLOQUEO DINÁMICO) ======
-                        if (encabezado.includes('link') && !encabezado.includes('asistencia')) {
-                            let contenidoBoton = "";
-                            let estiloBoton = "";
-
-                            if (estadoFinal === "concluida") {
-                                // CONFIGURACIÓN BOTÓN ROJO
-                                styleBoton = "background: linear-gradient(135deg, #e57373 0%, #ef5350 100%);";
-                                contenidoBoton = `
-            <div style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 20px; min-width: 160px; ${styleBoton} color: white; border-radius: 8px; font-weight: 600; font-size: 13px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); opacity: 0.9; cursor: not-allowed;">
-                <span>🔴</span>
-                <span>Clase pasada</span>
-            </div>`;
-                            } else if (estadoFinal === "feriado" || estadoFinal === "cancelada") {
-                                // CONFIGURACIÓN BOTÓN AMARILLO/NARANJA
-                                styleBoton = "background: linear-gradient(135deg, #FFB74D 0%, #F57C00 100%);";
-                                contenidoBoton = `
-            <div style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 20px; min-width: 160px; ${styleBoton} color: white; border-radius: 8px; font-weight: 600; font-size: 13px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); opacity: 0.9; cursor: not-allowed;">
-                <span>🗓️</span>
-                <span>Sin clase</span>
-            </div>`;
-                            } else if (celda && celda.includes('http')) {
-                                // CONFIGURACIÓN BOTÓN AZUL (ACTIVO)
-                                const urlFinal = celda.startsWith('www.') ? 'https://' + celda : celda;
-                                contenidoBoton = `
-            <a href="${urlFinal}" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 20px; min-width: 160px; background: linear-gradient(135deg, #0090BC, #33A8CB); color: white; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 13px; transition: all 0.3s ease; box-shadow: 0 2px 8px rgba(0,144,188,0.3);" onmouseover="this.style.transform='translateY(-2px)';" onmouseout="this.style.transform='translateY(0)';">
-                <span>🎥 Ir a clase</span>
-            </a>`;
-                            } else {
-                                contenidoBoton = `<span style="color: #999;">-</span>`;
-                            }
-
-                            return `<td style="text-align: center; padding: 15px 10px;">${contenidoBoton}</td>`;
-                        }
-
-                        // ====== COLUMNA ASISTENCIAS (EXCEL) ======
-                        if (encabezado.includes('asistencia')) {
-                            if (celda && celda.includes('http')) {
-                                return `<td style="text-align: center; padding: 15px 10px;">
-                                    <a href="${celda}" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 20px; min-width: 140px; background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%); color: white; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 13px; transition: all 0.3s ease; box-shadow: 0 2px 8px rgba(39,174,96,0.3);" onmouseover="this.style.transform='translateY(-2px)';" onmouseout="this.style.transform='translateY(0)';">
-                                        <span>📊 Excel</span>
-                                    </a>
-                                </td>`;
-                            }
-                            return `<td style="text-align: center; padding: 15px 10px; color: #999;">-</td>`;
-                        }
-
-                        // ====== COLUMNA ESTADO ======
-                        if (encabezado.includes('estado')) {
-                            let common = "display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 8px; font-weight: 600; font-size: 13px; border: 2px solid;";
-                            if (estadoFinal === "concluida") {
-                                return `<td style="text-align: center; padding: 15px 10px;"><span style="${common} background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); color: #2e7d32; border-color: #81c784;"><span style="font-size: 14px;">✓</span><span>concluida</span></span></td>`;
-                            }
-                            if (estadoFinal === "feriado") {
-                                return `<td style="text-align: center; padding: 15px 10px;"><span style="${common} background: linear-gradient(135deg, #fff9e6 0%, #ffe8b3 100%); color: #f57c00; border-color: #ffb74d;"><span style="font-size: 14px;">🎉</span><span>FERIADO</span></span></td>`;
-                            }
-                            if (estadoFinal === "cancelada") {
-                                return `<td style="text-align: center; padding: 15px 10px;"><span style="${common} background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%); color: #6a1b9a; border-color: #ba68c8;"><span style="font-size: 14px;">ℹ️</span><span>CANCELADA</span></span></td>`;
-                            }
-                            return `<td style="text-align: center; padding: 15px 10px; font-weight: 600; color: #0090BC;">${celda || 'programada'}</td>`;
-                        }
-
-                        // ====== COLUMNA GRABACIÓN (NUEVA) ======
-                        if (encabezado.includes('grabación') || encabezado.includes('grabacion')) {
-                            if (celda && celda.includes('http')) {
-                                return `<td style="text-align: center; padding: 10px 5px;">
-            <a href="${celda}" target="_blank" rel="noopener noreferrer" 
-               style="display: inline-flex; align-items: center; justify-content: center; gap: 5px; padding: 8px 12px; width: 100%; max-width: 150px; background: linear-gradient(135deg, #6C63FF, #5852d6); color: white; text-decoration: none; border-radius: 8px; font-weight: 700; font-size: 11px; transition: all 0.3s ease; box-shadow: 0 2px 6px rgba(108,99,255,0.3);">
-                <span style="font-size: 14px;">🎬</span>
-                <span style="white-space: nowrap;">Ver Grabación</span>
-            </a>
-        </td>`;
-                            }
-                            // Si la clase ya pasó pero no hay link de grabación aún
-                            if (estadoFinal === "concluida") {
-                                return `<td style="text-align: center; padding: 15px 10px; color: #6B6B6B; font-style: italic; font-size: 11px;">
-            -
-        </td>`;
-                            }
-                            return `<td style="text-align: center; padding: 15px 10px; color: #999;">-</td>`;
-                        }
-
-                        if (encabezado.includes('fecha')) return `<td style="text-align: center; padding: 15px 10px; font-weight: 600; color: #0090BC;">${celda}</td>`;
-                        return `<td style="text-align: center; padding: 15px 10px; color: #555;">${celda || '-'}</td>`;
-                    }).join('') + '</tr>';
-                }).join('');
-                // Mostrar tabla y ocultar mensaje de carga
-                loadingMsg.style.display = 'none';
-                tabla.style.display = 'table';
-                // 1. Establecemos el valor del selector visualmente
-                document.getElementById('filterProximas').value = 'proximas';
-
-                // 2. Cargamos las filas en la variable global de paginación antes de filtrar
-                allDataRows = Array.from(tbody.querySelectorAll('tr'));
-                totalRows = allDataRows.length;
-
-                // 3. Ejecutamos el filtro (esto ocultará las clases pasadas)
-                filterLiveClasses();
-
-                console.log('✅ Tabla cargada y filtrada exitosamente');
-
-            } catch (error) {
-                console.error('❌ Error completo:', error);
-
-                loadingMsg.innerHTML = `
-            <div style="text-align: center; 
-                        padding: 80px 40px;
-                        background: linear-gradient(135deg, #fff9e6 0%, var(--blanco) 100%);
-                        border-radius: 25px;
-                        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);">
-                
-                <div style="font-size: 100px; margin-bottom: 30px;">🔌</div>
-                
-                <h3 style="color: var(--azul-petróleo); 
-                           font-size: 32px; 
-                           font-weight: 900; 
-                           margin-bottom: 20px;">
-                    Error al cargar las clases
-                </h3>
-                
-                <p style="color: var(--gris-medio); 
-                          font-size: 16px; 
-                          line-height: 1.7;
-                          max-width: 600px;
-                          margin: 0 auto 20px;">
-                    ${error.message}
-                </p>
-                
-                <button onclick="cargarDatosSheet()" 
-                        style="background: linear-gradient(135deg, var(--azul-principal) 0%, var(--azul-claro) 100%);
-                               color: white;
-                               border: none;
-                               padding: 15px 40px;
-                               border-radius: 50px;
-                               font-weight: 700;
-                               font-size: 16px;
-                               cursor: pointer;
-                               box-shadow: 0 6px 20px rgba(0, 144, 188, 0.3);
-                               transition: all 0.3s ease;"
-                        onmouseover="this.style.transform='translateY(-3px)';"
-                        onmouseout="this.style.transform='translateY(0)';">
-                    🔄 Reintentar
-                </button>
-            </div>
-        `;
-            }
-        }
-
-        // Ejecutar cuando el DOM esté listo
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', cargarDatosSheet);
-        } else {
-            cargarDatosSheet();
-        }
-
-        // ===== VARIABLES DE PAGINACIÓN =====
-        let currentPage = 1;
-        let rowsPerPage = 10;
-        let totalRows = 0;
-        let allDataRows = [];
-
-        // ===== FUNCIÓN PARA INICIALIZAR PAGINACIÓN =====
-        function initPagination() {
-            const tbody = document.querySelector('#tabla-datos tbody');
-            if (!tbody) return;
-
-            // Guardar todas las filas
-            allDataRows = Array.from(tbody.querySelectorAll('tr'));
-            totalRows = allDataRows.length;
-
-            if (totalRows === 0) return;
-
-            // Mostrar controles de paginación
-            document.getElementById('pagination-controls').style.display = 'flex';
-
-            // Mostrar primera página
-            displayPage(1);
-        }
-
-        // ===== FUNCIÓN PARA MOSTRAR PÁGINA =====
-        function displayPage(pageNumber) {
-            currentPage = pageNumber;
-
-            const start = (pageNumber - 1) * rowsPerPage;
-            const end = start + rowsPerPage;
-
-            // Ocultar todas las filas
-            allDataRows.forEach(row => row.style.display = 'none');
-
-            // Mostrar solo las filas de la página actual
-            const rowsToShow = allDataRows.slice(start, end);
-            rowsToShow.forEach(row => row.style.display = '');
-
-            // Actualizar info
-            updatePaginationInfo(start, end);
-            updatePaginationButtons();
-        }
-
-        // ===== ACTUALIZAR INFORMACIÓN =====
-        function updatePaginationInfo(start, end) {
-            document.getElementById('showing-start').textContent = start + 1;
-            document.getElementById('showing-end').textContent = Math.min(end, totalRows);
-            document.getElementById('total-rows').textContent = totalRows;
-        }
-
-        // ===== ACTUALIZAR BOTONES =====
-        function updatePaginationButtons() {
-            const totalPages = Math.ceil(totalRows / rowsPerPage);
-
-            // Habilitar/deshabilitar botones
-            document.getElementById('first-page').disabled = currentPage === 1;
-            document.getElementById('prev-page').disabled = currentPage === 1;
-            document.getElementById('next-page').disabled = currentPage === totalPages;
-            document.getElementById('last-page').disabled = currentPage === totalPages;
-
-            // Crear números de página
-            createPageNumbers(totalPages);
-        }
-
-        // ===== CREAR NÚMEROS DE PÁGINA =====
-        function createPageNumbers(totalPages) {
-            const container = document.getElementById('page-numbers');
-            container.innerHTML = '';
-
-            let startPage = Math.max(1, currentPage - 2);
-            let endPage = Math.min(totalPages, currentPage + 2);
-
-            for (let i = startPage; i <= endPage; i++) {
-                const pageBtn = document.createElement('div');
-                pageBtn.className = 'page-number' + (i === currentPage ? ' active' : '');
-                pageBtn.textContent = i;
-                pageBtn.onclick = () => goToPage(i);
-                container.appendChild(pageBtn);
-            }
-        }
-
-        // ===== FUNCIONES DE NAVEGACIÓN =====
-        function nextPage() {
-            const totalPages = Math.ceil(totalRows / rowsPerPage);
-            if (currentPage < totalPages) {
-                displayPage(currentPage + 1);
-            }
-        }
-
-        function previousPage() {
-            if (currentPage > 1) {
-                displayPage(currentPage - 1);
-            }
-        }
-
-        function goToPage(page) {
-            displayPage(page);
-        }
-
-        function goToLastPage() {
-            const totalPages = Math.ceil(totalRows / rowsPerPage);
-            displayPage(totalPages);
-        }
-
-        function changeRowsPerPage() {
-            rowsPerPage = parseInt(document.getElementById('rows-per-page').value);
-            displayPage(1); // Volver a la primera página
-        }
-
-        // ===== MODIFICAR LA FUNCIÓN cargarDatosSheet EXISTENT =====
-        // Busca donde dice: tabla.style.display = 'table';
-        // Y justo después agrega:
-        //
-        // // Inicializar paginación
-        // setTimeout(() => {
-        //     initPagination();
-        // }, 100);
-
-
-        // 1. Modificación de la función de filtrado principal
-        function filterLiveClasses() {
-            const dateInput = document.getElementById('filterDateLive').value;
-            const proximasFilter = document.getElementById('filterProximas').value;
-            const table = document.getElementById('tabla-datos');
-            const rows = Array.from(table.querySelectorAll('tbody tr'));
-
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
-
-            rows.forEach(row => {
-                const dateCellText = row.cells[1]?.textContent.trim(); // Columna FECHA (índice 1)
-                let showRow = true;
-
-                if (dateCellText && dateCellText !== '-') {
-                    const parts = dateCellText.split('/');
-                    // Creamos objeto fecha: Año, Mes(0-11), Día
-                    const rowDate = new Date(parts[2], parts[1] - 1, parts[0]);
-
-                    if (dateInput) {
-                        const [y, m, d] = dateInput.split('-');
-                        const selectedDate = new Date(y, m - 1, d);
-                        if (rowDate.getTime() !== selectedDate.getTime()) showRow = false;
-                    }
-
-                    if (proximasFilter === 'proximas') {
-                        if (rowDate < today) showRow = false;
-                    }
-                }
-
-                if (showRow) {
-                    row.classList.remove('hidden-live-row');
-                } else {
-                    row.classList.add('hidden-live-row');
-                }
-            });
-
-            // RE-INICIALIZAR PAGINACIÓN CON LOS RESULTADOS VISIBLES
-            const tbody = document.querySelector('#tabla-datos tbody');
-            allDataRows = Array.from(tbody.querySelectorAll('tr:not(.hidden-live-row)'));
-            totalRows = allDataRows.length;
-
-            if (totalRows > 0) {
-                document.getElementById('pagination-controls').style.display = 'flex';
-                displayPage(1); // Ir a la página 1 de los resultados filtrados
-            } else {
-                document.getElementById('pagination-controls').style.display = 'none';
-            }
-        }
-
-        // Función auxiliar para recalcular la paginación con los datos filtrados
-        function updatePaginationAfterFilter() {
-            const tbody = document.querySelector('#tabla-datos tbody');
-            if (!tbody) return;
-
-            // Obtenemos solo las filas que NO están ocultas por el filtro
-            allDataRows = Array.from(tbody.querySelectorAll('tr:not(.hidden-live-row)'));
-            totalRows = allDataRows.length;
-
-            // Si no hay resultados, ocultar controles o mostrar mensaje
-            if (totalRows === 0) {
-                document.getElementById('pagination-controls').style.display = 'none';
-            } else {
-                document.getElementById('pagination-controls').style.display = 'flex';
-                // Forzar ir a la página 1
-                displayPage(1);
-            }
-        }
-
-        // 3. Limpiar filtros volviendo a la página 1
-        // Función para limpiar filtros sin perder la lógica de Próximas Clasescd erp_light
-        function clearLiveFilters() {
-            // 1. Limpiamos los inputs visualmente
-            document.getElementById('filterDateLive').value = '';
-
-            // 2. IMPORTANTE: En lugar de "todas", volvemos a poner "proximas"
-            // para que el usuario siempre vea lo que viene a continuación
-            document.getElementById('filterProximas').value = 'proximas';
-
-            // 3. Ejecutamos la función de filtrado principal
-            // Esta función ya se encarga de ocultar filas viejas y resetear la paginación
-            filterLiveClasses();
-        }
-
-    </script>
-
-    <script>
         // URL DE TU GOOGLE SHEET
         const sheetURL_Live = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSzPzAd2y82o0x_lPEmZ4S0Lr38_sCNOGU24Ra7y1bv3NSzspLVAsIgRjossHVrz_FaQGRS3ZzGzUbr/pub?gid=0&single=true&output=csv';
 
@@ -8399,16 +7918,20 @@
             const loadingMsg = document.getElementById('loading-message-live');
             const tabla = document.getElementById('tabla-datos-live');
             const msgError = document.getElementById('no-classes-msg');
+            const filtroSelector = document.getElementById('filterProximas');
 
             try {
                 loadingMsg.style.display = 'block';
                 tabla.style.display = 'none';
                 msgError.style.display = 'none';
 
+                // Forzar visualmente el filtro "Próximas" al cargar
+                if (filtroSelector) filtroSelector.value = 'proximas';
+
                 const response = await fetch(sheetURL_Live);
                 const csv = await response.text();
 
-                // --- PARSER ROBUSTO (Maneja comillas y comas dentro de celdas) ---
+                // --- PARSER CSV ---
                 function parseCSVLine(line) {
                     const result = [];
                     let current = '';
@@ -8427,12 +7950,13 @@
                 const filas = lineas.map(parseCSVLine);
                 const [encabezados, ...datos] = filas;
 
-                // Identificar índices de columnas clave dinámicamente
+                // --- DETECCIÓN DE COLUMNAS ---
                 const idxFecha = encabezados.findIndex(h => h.toLowerCase().includes('fecha'));
                 const idxLink = encabezados.findIndex(h => h.toLowerCase().includes('link'));
                 const idxEstado = encabezados.findIndex(h => h.toLowerCase().includes('estado'));
                 const idxAsist = encabezados.findIndex(h => h.toLowerCase().includes('asistencia'));
-                const idxGrab = encabezados.findIndex(h => h.toLowerCase().includes('grab')); // Grabación
+                const idxGrab = encabezados.findIndex(h => h.toLowerCase().includes('grab'));
+                const idxPPT = encabezados.findIndex(h => h.toLowerCase().includes('ppt')); // Columna PPT
 
                 // 1. DIBUJAR ENCABEZADOS
                 let headerHTML = '<tr>';
@@ -8442,86 +7966,94 @@
                 headerHTML += '</tr>';
                 tabla.querySelector('thead').innerHTML = headerHTML;
 
-                // 2. DIBUJAR CUERPO CON LÓGICA DE COLORES
+                // 2. DIBUJAR CUERPO
                 let bodyHTML = '';
 
                 datos.forEach(fila => {
-                    // Si la fila está vacía, saltar
-                    if (!fila[0]) return;
+                    if (!fila[0]) return; // Saltar filas vacías
 
                     const fechaTexto = fila[idxFecha] || '';
-                    const linkClase = fila[idxLink] || '';
                     const estadoManual = (fila[idxEstado] || '').toLowerCase();
-                    const linkAsistencia = fila[idxAsist] || '';
-                    const linkGrabacion = fila[idxGrab] || '';
 
-                    // Lógica de Estado (Pasada, Feriado, Cancelada)
+                    // --- LÓGICA DE TIEMPO (Bloqueo a las 12:00 PM) ---
                     let claseYaPaso = false;
                     if (fechaTexto.includes('/')) {
-                        const partes = fechaTexto.split('/'); // DD/MM/YYYY
+                        const partes = fechaTexto.split('/');
                         if (partes.length === 3) {
-                            // Crear fecha fin del día de la clase (23:59:59)
-                            const fechaClase = new Date(partes[2], partes[1] - 1, partes[0], 23, 59, 59);
-                            const hoy = new Date();
-                            if (hoy > fechaClase) claseYaPaso = true;
+                            // Fecha de la clase a las 12:00:00 del mediodía
+                            const fechaLimite = new Date(partes[2], partes[1] - 1, partes[0], 12, 0, 0);
+                            const ahora = new Date();
+
+                            // Si la hora actual es mayor a las 12pm del día de clase -> YA PASÓ
+                            if (ahora > fechaLimite) {
+                                claseYaPaso = true;
+                            }
                         }
                     }
 
+                    // Determinación del Estado Final
                     let estadoFinal = "programada";
                     if (estadoManual.includes('feriado')) estadoFinal = "feriado";
                     else if (estadoManual.includes('cancelada')) estadoFinal = "cancelada";
-                    else if (claseYaPaso || estadoManual.includes('conclui')) estadoFinal = "concluida";
+                    else if (claseYaPaso || estadoManual.includes('conclui') || estadoManual.includes('finaliz')) estadoFinal = "concluida";
 
-                    // Construir la fila HTML
-                    // Agregamos data-fecha para el filtro
+                    // Construcción de Fila
                     bodyHTML += `<tr class="live-row" data-fecha="${fechaTexto}">`;
 
                     fila.forEach((celda, index) => {
                         let contenido = celda.replace(/"/g, '');
-                        let estiloCelda = 'text-align: center;';
+                        let estiloCelda = 'text-align: center; vertical-align: middle;';
 
-                        // --- COLUMNA LINK (BOTONES AZUL, ROJO, NARANJA) ---
-                        if (index === idxLink) {
+                        // --- [MODIFICADO] COLUMNA PPT CON ICONO POWERPOINT ---
+                        if (index === idxPPT) {
+                            if (celda.toLowerCase().includes('http')) {
+                                contenido = `
+                            <a href="${celda}" target="_blank" class="btn-status ppt">
+                                <i class="fa-solid fa-file-powerpoint"></i> Ver PPT
+                            </a>`;
+                            } else {
+                                contenido = `<span style="color:#ccc; font-size:12px;">-</span>`;
+                            }
+                        }
+
+                        // --- COLUMNA LINK (BLOQUEO DESPUÉS DE LAS 12AM/PM) ---
+                        else if (index === idxLink) {
                             if (estadoFinal === "concluida") {
-                                contenido = `<span class="btn-status red">🔴 Clase pasada</span>`;
+                                contenido = `<span class="btn-status red" style="opacity:0.7; cursor:not-allowed;">🔴 Finalizada</span>`;
                             } else if (estadoFinal === "feriado" || estadoFinal === "cancelada") {
                                 contenido = `<span class="btn-status orange">📅 Sin clase</span>`;
                             } else if (celda.includes('http')) {
                                 contenido = `<a href="${celda}" target="_blank" class="btn-status blue">🎥 Ir a clase</a>`;
                             } else {
-                                contenido = `<span style="color:#ccc">-</span>`;
+                                contenido = `<span style="color:#ccc;">-</span>`;
                             }
                         }
 
-                        // --- COLUMNA ESTADO (BADGES) ---
-                        else if (index === idxEstado) {
-                            if (estadoFinal === "concluida")
-                                contenido = `<span class="badge-status success">✓ concluida</span>`;
-                            else if (estadoFinal === "feriado")
-                                contenido = `<span class="badge-status warning">🎉 FERIADO</span>`;
-                            else if (estadoFinal === "cancelada")
-                                contenido = `<span class="badge-status error">ℹ️ CANCELADA</span>`;
-                            else
-                                contenido = `<span class="badge-status info">activa</span>`;
-                        }
-
-                        // --- COLUMNA ASISTENCIA (VERDE) ---
-                        else if (index === idxAsist) {
-                            if (celda.includes('http')) {
-                                contenido = `<a href="${celda}" target="_blank" class="btn-status green">📊 Excel</a>`;
-                            } else { contenido = `<span style="color:#ccc">-</span>`; }
-                        }
-
-                        // --- COLUMNA GRABACIÓN (VIOLETA) ---
+                        // --- COLUMNA GRABACIÓN ---
                         else if (index === idxGrab) {
                             if (celda.includes('http')) {
                                 contenido = `<a href="${celda}" target="_blank" class="btn-status purple">🎬 Ver Grabación</a>`;
                             } else if (estadoFinal === "concluida") {
                                 contenido = `<span style="font-size:11px; color:#999;">Pendiente</span>`;
-                            } else { contenido = `<span style="color:#ccc">-</span>`; }
+                            } else { contenido = `<span style="color:#ccc; font-size:12px;">-</span>`; }
                         }
 
-                        // --- COLUMNA FECHA (Color destacado) ---
+                        // --- COLUMNA ASISTENCIA ---
+                        else if (index === idxAsist) {
+                            if (celda.includes('http')) {
+                                contenido = `<a href="${celda}" target="_blank" class="btn-status green">📊 Asistencia</a>`;
+                            } else { contenido = `<span style="color:#ccc;">-</span>`; }
+                        }
+
+                        // --- COLUMNA ESTADO ---
+                        else if (index === idxEstado) {
+                            if (estadoFinal === "concluida") contenido = `<span class="badge-status success">✓ Concluida</span>`;
+                            else if (estadoFinal === "feriado") contenido = `<span class="badge-status warning">🎉 Feriado</span>`;
+                            else if (estadoFinal === "cancelada") contenido = `<span class="badge-status error">ℹ️ Cancelada</span>`;
+                            else contenido = `<span class="badge-status info">Activa</span>`;
+                        }
+
+                        // --- COLUMNA FECHA ---
                         else if (index === idxFecha) {
                             estiloCelda += 'font-weight: 700; color: var(--azul-principal);';
                         }
@@ -8535,22 +8067,23 @@
                 loadingMsg.style.display = 'none';
                 tabla.style.display = 'table';
 
-                // Ejecutar filtro inicial
+                // --- APLICAR FILTRO AUTOMÁTICO AL CARGAR ---
                 filterLiveClassesSimple();
 
             } catch (error) {
                 console.error(error);
-                loadingMsg.textContent = "Error cargando datos. Revisa la consola.";
+                loadingMsg.innerHTML = `<div style="color:red; padding:20px;">Error al cargar datos.</div>`;
             }
         }
 
-        // --- FUNCIÓN DE FILTRADO (IGUAL QUE ANTES, PERO SIN PAGINACIÓN) ---
+        // --- FUNCIÓN DE FILTRADO (Misma lógica anterior) ---
         function filterLiveClassesSimple() {
             const dateInput = document.getElementById('filterDateLive').value;
             const viewMode = document.getElementById('filterProximas').value;
             const rows = document.querySelectorAll('.live-row');
             let visibleCount = 0;
 
+            // Obtenemos fecha de hoy a las 00:00:00
             const today = new Date();
             today.setHours(0, 0, 0, 0);
 
@@ -8562,12 +8095,19 @@
                     const parts = fechaStr.split('/');
                     const rowDate = new Date(parts[2], parts[1] - 1, parts[0]);
 
-                    if (viewMode === 'proximas' && rowDate < today) show = false;
+                    // Filtro Próximas
+                    if (viewMode === 'proximas') {
+                        if (rowDate < today) show = false;
+                    }
 
+                    // Filtro Fecha Específica
                     if (dateInput) {
                         const [y, m, d] = dateInput.split('-');
                         const inputDate = new Date(y, m - 1, d);
-                        if (inputDate.getTime() !== rowDate.getTime()) show = false;
+                        // Comparación sin hora
+                        const inputDateZero = new Date(inputDate.getFullYear(), inputDate.getMonth(), inputDate.getDate());
+
+                        if (inputDateZero.getTime() !== rowDate.getTime()) show = false;
                     }
                 }
 
@@ -8575,13 +8115,21 @@
                 if (show) visibleCount++;
             });
 
-            document.getElementById('no-classes-msg').style.display = (visibleCount === 0) ? 'block' : 'none';
-            document.getElementById('tabla-datos-live').style.display = (visibleCount === 0) ? 'none' : 'table';
+            const msgError = document.getElementById('no-classes-msg');
+            const tabla = document.getElementById('tabla-datos-live');
+
+            if (visibleCount === 0) {
+                msgError.style.display = 'block';
+                tabla.style.display = 'none';
+            } else {
+                msgError.style.display = 'none';
+                tabla.style.display = 'table';
+            }
         }
 
         function clearLiveFiltersSimple() {
             document.getElementById('filterDateLive').value = '';
-            document.getElementById('filterProximas').value = 'todas'; // O 'proximas' si prefieres ese default
+            document.getElementById('filterProximas').value = 'proximas';
             filterLiveClassesSimple();
         }
 
