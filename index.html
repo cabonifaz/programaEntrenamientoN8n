@@ -7910,7 +7910,7 @@
         };
     </script>
 
-    <script>
+   <script>
     // URL DE TU GOOGLE SHEET
     const sheetURL_Live = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSzPzAd2y82o0x_lPEmZ4S0Lr38_sCNOGU24Ra7y1bv3NSzspLVAsIgRjossHVrz_FaQGRS3ZzGzUbr/pub?gid=0&single=true&output=csv';
 
@@ -7925,7 +7925,7 @@
             tabla.style.display = 'none';
             msgError.style.display = 'none';
 
-            // 1. FORZAR FILTRO "PRÓXIMAS" AL INICIO
+            // Forzar visualmente el filtro "Próximas" al cargar
             if(filtroSelector) filtroSelector.value = 'proximas';
 
             const response = await fetch(sheetURL_Live);
@@ -7956,7 +7956,7 @@
             const idxEstado = encabezados.findIndex(h => h.toLowerCase().includes('estado'));
             const idxAsist = encabezados.findIndex(h => h.toLowerCase().includes('asistencia'));
             const idxGrab = encabezados.findIndex(h => h.toLowerCase().includes('grab')); 
-            const idxPPT = encabezados.findIndex(h => h.toLowerCase().includes('ppt')); // Nueva columna
+            const idxPPT = encabezados.findIndex(h => h.toLowerCase().includes('ppt'));
 
             // 1. DIBUJAR ENCABEZADOS
             let headerHTML = '<tr>';
@@ -7975,23 +7975,22 @@
                 const fechaTexto = fila[idxFecha] || '';
                 const estadoManual = (fila[idxEstado] || '').toLowerCase();
                 
-                // --- LÓGICA DE TIEMPO (24 HORAS DESPUÉS) ---
+                // --- CORRECCIÓN DE LA LÓGICA DE TIEMPO ---
                 let claseYaPaso = false;
                 if (fechaTexto.includes('/')) {
                     const partes = fechaTexto.split('/');
                     if (partes.length === 3) {
-                        // Fecha de la clase (00:00 horas)
+                        // Fecha base de la clase (00:00 AM del día de la clase)
                         const fechaClase = new Date(partes[2], partes[1] - 1, partes[0]);
                         
-                        // Límite: Día de la clase + 1 día (24h) + Final del día (23:59:59)
-                        // Esto permite que el link siga vivo el día siguiente.
+                        // Límite: Día de la clase + 1 día extra completo (hasta las 23:59:59 del día siguiente)
                         const fechaLimite = new Date(fechaClase);
                         fechaLimite.setDate(fechaLimite.getDate() + 1); 
                         fechaLimite.setHours(23, 59, 59);
 
                         const ahora = new Date();
                         
-                        // Si la hora actual supera el final del día siguiente -> YA PASÓ
+                        // Solo bloquea si HOY es DESPUÉS del final del día siguiente
                         if (ahora > fechaLimite) {
                             claseYaPaso = true;
                         }
@@ -8011,16 +8010,19 @@
                     let contenido = celda.replace(/"/g, '');
                     let estiloCelda = 'text-align: center; vertical-align: middle;';
 
-                    // --- COLUMNA PPT (NUEVO BOTÓN CON ICONO) ---
+                    // --- COLUMNA PPT ---
                     if (index === idxPPT) {
                         if (celda.toLowerCase().includes('http')) {
-                            contenido = `<a href="${celda}" target="_blank" class="btn-status ppt"><i class="fa-solid fa-file-powerpoint"></i> Ver PPT</a>`;
+                            contenido = `
+                            <a href="${celda}" target="_blank" class="btn-status ppt">
+                                <i class="fa-solid fa-file-powerpoint"></i> Ver PPT
+                            </a>`;
                         } else {
                             contenido = `<span style="color:#ccc; font-size:12px;">-</span>`;
                         }
                     }
 
-                    // --- COLUMNA LINK (BLOQUEO SEGÚN TIEMPO) ---
+                    // --- COLUMNA LINK (BLOQUEO SOLO SI claseYaPaso es TRUE) ---
                     else if (index === idxLink) {
                         if (estadoFinal === "concluida") {
                             contenido = `<span class="btn-status red" style="opacity:0.7; cursor:not-allowed;">🔴 Finalizada</span>`;
@@ -8071,7 +8073,7 @@
             loadingMsg.style.display = 'none';
             tabla.style.display = 'table';
             
-            // --- 2. APLICAR FILTRO AUTOMÁTICO AL CARGAR ---
+            // --- APLICAR FILTRO INICIAL ---
             filterLiveClassesSimple();
 
         } catch (error) {
@@ -8087,7 +8089,7 @@
         const rows = document.querySelectorAll('.live-row');
         let visibleCount = 0;
 
-        // Obtenemos fecha de hoy a las 00:00:00 para comparar días completos
+        // Fecha de hoy a las 00:00:00 para comparar
         const today = new Date();
         today.setHours(0, 0, 0, 0);
 
@@ -8097,19 +8099,17 @@
 
             if (fechaStr && fechaStr.includes('/')) {
                 const parts = fechaStr.split('/');
-                // Fecha de la fila (00:00:00)
-                const rowDate = new Date(parts[2], partes[1] - 1, partes[0]);
+                const rowDate = new Date(parts[2], parts[1] - 1, parts[0]);
 
-                // Lógica del filtro "Próximas" (Muestra hoy y futuro)
+                // Filtro "Próximas": Muestra si la fecha es >= Hoy
                 if (viewMode === 'proximas') {
                     if (rowDate < today) show = false; 
                 }
 
-                // Lógica del filtro de Fecha específica
+                // Filtro Fecha Específica
                 if (dateInput) {
                     const [y, m, d] = dateInput.split('-');
                     const inputDate = new Date(y, m - 1, d);
-                    // Comparar tiempos (ambos están a las 00:00:00)
                     const inputDateZero = new Date(inputDate.getFullYear(), inputDate.getMonth(), inputDate.getDate());
                     
                     if (inputDateZero.getTime() !== rowDate.getTime()) show = false;
@@ -8134,15 +8134,12 @@
 
     function clearLiveFiltersSimple() {
         document.getElementById('filterDateLive').value = '';
-        // Resetear a "Próximas" por defecto al limpiar
         document.getElementById('filterProximas').value = 'proximas'; 
         filterLiveClassesSimple();
     }
     
-    // Iniciar carga al renderizar
     document.addEventListener('DOMContentLoaded', cargarDatosLiveRobust);
 </script>
-
     <style>
         /* Clases utilitarias para botones de la tabla */
         .btn-status {
