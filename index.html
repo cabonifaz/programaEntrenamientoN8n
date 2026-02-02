@@ -7911,230 +7911,237 @@
     </script>
 
     <script>
-        // URL DE TU GOOGLE SHEET
-        const sheetURL_Live = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSzPzAd2y82o0x_lPEmZ4S0Lr38_sCNOGU24Ra7y1bv3NSzspLVAsIgRjossHVrz_FaQGRS3ZzGzUbr/pub?gid=0&single=true&output=csv';
+    // URL DE TU GOOGLE SHEET
+    const sheetURL_Live = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSzPzAd2y82o0x_lPEmZ4S0Lr38_sCNOGU24Ra7y1bv3NSzspLVAsIgRjossHVrz_FaQGRS3ZzGzUbr/pub?gid=0&single=true&output=csv';
 
-        async function cargarDatosLiveRobust() {
-            const loadingMsg = document.getElementById('loading-message-live');
-            const tabla = document.getElementById('tabla-datos-live');
-            const msgError = document.getElementById('no-classes-msg');
-            const filtroSelector = document.getElementById('filterProximas');
+    async function cargarDatosLiveRobust() {
+        const loadingMsg = document.getElementById('loading-message-live');
+        const tabla = document.getElementById('tabla-datos-live');
+        const msgError = document.getElementById('no-classes-msg');
+        const filtroSelector = document.getElementById('filterProximas');
 
-            try {
-                loadingMsg.style.display = 'block';
-                tabla.style.display = 'none';
-                msgError.style.display = 'none';
+        try {
+            loadingMsg.style.display = 'block';
+            tabla.style.display = 'none';
+            msgError.style.display = 'none';
 
-                // Forzar visualmente el filtro "Próximas" al cargar
-                if (filtroSelector) filtroSelector.value = 'proximas';
+            // 1. FORZAR FILTRO "PRÓXIMAS" AL INICIO
+            if(filtroSelector) filtroSelector.value = 'proximas';
 
-                const response = await fetch(sheetURL_Live);
-                const csv = await response.text();
+            const response = await fetch(sheetURL_Live);
+            const csv = await response.text();
 
-                // --- PARSER CSV ---
-                function parseCSVLine(line) {
-                    const result = [];
-                    let current = '';
-                    let inQuotes = false;
-                    for (let i = 0; i < line.length; i++) {
-                        const char = line[i];
-                        if (char === '"') { inQuotes = !inQuotes; }
-                        else if (char === ',' && !inQuotes) { result.push(current.trim()); current = ''; }
-                        else { current += char; }
-                    }
-                    result.push(current.trim());
-                    return result;
+            // --- PARSER CSV ---
+            function parseCSVLine(line) {
+                const result = [];
+                let current = '';
+                let inQuotes = false;
+                for (let i = 0; i < line.length; i++) {
+                    const char = line[i];
+                    if (char === '"') { inQuotes = !inQuotes; }
+                    else if (char === ',' && !inQuotes) { result.push(current.trim()); current = ''; }
+                    else { current += char; }
                 }
-
-                const lineas = csv.split(/\r?\n/).filter(l => l.trim().length > 0);
-                const filas = lineas.map(parseCSVLine);
-                const [encabezados, ...datos] = filas;
-
-                // --- DETECCIÓN DE COLUMNAS ---
-                const idxFecha = encabezados.findIndex(h => h.toLowerCase().includes('fecha'));
-                const idxLink = encabezados.findIndex(h => h.toLowerCase().includes('link'));
-                const idxEstado = encabezados.findIndex(h => h.toLowerCase().includes('estado'));
-                const idxAsist = encabezados.findIndex(h => h.toLowerCase().includes('asistencia'));
-                const idxGrab = encabezados.findIndex(h => h.toLowerCase().includes('grab'));
-                const idxPPT = encabezados.findIndex(h => h.toLowerCase().includes('ppt')); // Columna PPT
-
-                // 1. DIBUJAR ENCABEZADOS
-                let headerHTML = '<tr>';
-                encabezados.forEach(h => {
-                    headerHTML += `<th>${h.replace(/"/g, '')}</th>`;
-                });
-                headerHTML += '</tr>';
-                tabla.querySelector('thead').innerHTML = headerHTML;
-
-                // 2. DIBUJAR CUERPO
-                let bodyHTML = '';
-
-                datos.forEach(fila => {
-                    if (!fila[0]) return; // Saltar filas vacías
-
-                    const fechaTexto = fila[idxFecha] || '';
-                    const estadoManual = (fila[idxEstado] || '').toLowerCase();
-
-                    // --- LÓGICA DE TIEMPO (Bloqueo a las 12:00 PM) ---
-                    let claseYaPaso = false;
-                    if (fechaTexto.includes('/')) {
-                        const partes = fechaTexto.split('/');
-                        if (partes.length === 3) {
-                            // Fecha de la clase a las 12:00:00 del mediodía
-                            const fechaLimite = new Date(partes[2], partes[1] - 1, partes[0], 12, 0, 0);
-                            const ahora = new Date();
-
-                            // Si la hora actual es mayor a las 12pm del día de clase -> YA PASÓ
-                            if (ahora > fechaLimite) {
-                                claseYaPaso = true;
-                            }
-                        }
-                    }
-
-                    // Determinación del Estado Final
-                    let estadoFinal = "programada";
-                    if (estadoManual.includes('feriado')) estadoFinal = "feriado";
-                    else if (estadoManual.includes('cancelada')) estadoFinal = "cancelada";
-                    else if (claseYaPaso || estadoManual.includes('conclui') || estadoManual.includes('finaliz')) estadoFinal = "concluida";
-
-                    // Construcción de Fila
-                    bodyHTML += `<tr class="live-row" data-fecha="${fechaTexto}">`;
-
-                    fila.forEach((celda, index) => {
-                        let contenido = celda.replace(/"/g, '');
-                        let estiloCelda = 'text-align: center; vertical-align: middle;';
-
-                        // --- [MODIFICADO] COLUMNA PPT CON ICONO POWERPOINT ---
-                        if (index === idxPPT) {
-                            if (celda.toLowerCase().includes('http')) {
-                                contenido = `
-                            <a href="${celda}" target="_blank" class="btn-status ppt">
-                                <i class="fa-solid fa-file-powerpoint"></i> Ver PPT
-                            </a>`;
-                            } else {
-                                contenido = `<span style="color:#ccc; font-size:12px;">-</span>`;
-                            }
-                        }
-
-                        // --- COLUMNA LINK (BLOQUEO DESPUÉS DE LAS 12AM/PM) ---
-                        else if (index === idxLink) {
-                            if (estadoFinal === "concluida") {
-                                contenido = `<span class="btn-status red" style="opacity:0.7; cursor:not-allowed;">🔴 Finalizada</span>`;
-                            } else if (estadoFinal === "feriado" || estadoFinal === "cancelada") {
-                                contenido = `<span class="btn-status orange">📅 Sin clase</span>`;
-                            } else if (celda.includes('http')) {
-                                contenido = `<a href="${celda}" target="_blank" class="btn-status blue">🎥 Ir a clase</a>`;
-                            } else {
-                                contenido = `<span style="color:#ccc;">-</span>`;
-                            }
-                        }
-
-                        // --- COLUMNA GRABACIÓN ---
-                        else if (index === idxGrab) {
-                            if (celda.includes('http')) {
-                                contenido = `<a href="${celda}" target="_blank" class="btn-status purple">🎬 Ver Grabación</a>`;
-                            } else if (estadoFinal === "concluida") {
-                                contenido = `<span style="font-size:11px; color:#999;">Pendiente</span>`;
-                            } else { contenido = `<span style="color:#ccc; font-size:12px;">-</span>`; }
-                        }
-
-                        // --- COLUMNA ASISTENCIA ---
-                        else if (index === idxAsist) {
-                            if (celda.includes('http')) {
-                                contenido = `<a href="${celda}" target="_blank" class="btn-status green">📊 Asistencia</a>`;
-                            } else { contenido = `<span style="color:#ccc;">-</span>`; }
-                        }
-
-                        // --- COLUMNA ESTADO ---
-                        else if (index === idxEstado) {
-                            if (estadoFinal === "concluida") contenido = `<span class="badge-status success">✓ Concluida</span>`;
-                            else if (estadoFinal === "feriado") contenido = `<span class="badge-status warning">🎉 Feriado</span>`;
-                            else if (estadoFinal === "cancelada") contenido = `<span class="badge-status error">ℹ️ Cancelada</span>`;
-                            else contenido = `<span class="badge-status info">Activa</span>`;
-                        }
-
-                        // --- COLUMNA FECHA ---
-                        else if (index === idxFecha) {
-                            estiloCelda += 'font-weight: 700; color: var(--azul-principal);';
-                        }
-
-                        bodyHTML += `<td style="${estiloCelda}">${contenido}</td>`;
-                    });
-                    bodyHTML += '</tr>';
-                });
-
-                tabla.querySelector('tbody').innerHTML = bodyHTML;
-                loadingMsg.style.display = 'none';
-                tabla.style.display = 'table';
-
-                // --- APLICAR FILTRO AUTOMÁTICO AL CARGAR ---
-                filterLiveClassesSimple();
-
-            } catch (error) {
-                console.error(error);
-                loadingMsg.innerHTML = `<div style="color:red; padding:20px;">Error al cargar datos.</div>`;
+                result.push(current.trim());
+                return result;
             }
-        }
 
-        // --- FUNCIÓN DE FILTRADO (Misma lógica anterior) ---
-        function filterLiveClassesSimple() {
-            const dateInput = document.getElementById('filterDateLive').value;
-            const viewMode = document.getElementById('filterProximas').value;
-            const rows = document.querySelectorAll('.live-row');
-            let visibleCount = 0;
+            const lineas = csv.split(/\r?\n/).filter(l => l.trim().length > 0);
+            const filas = lineas.map(parseCSVLine);
+            const [encabezados, ...datos] = filas;
 
-            // Obtenemos fecha de hoy a las 00:00:00
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
+            // --- DETECCIÓN DE COLUMNAS ---
+            const idxFecha = encabezados.findIndex(h => h.toLowerCase().includes('fecha'));
+            const idxLink = encabezados.findIndex(h => h.toLowerCase().includes('link'));
+            const idxEstado = encabezados.findIndex(h => h.toLowerCase().includes('estado'));
+            const idxAsist = encabezados.findIndex(h => h.toLowerCase().includes('asistencia'));
+            const idxGrab = encabezados.findIndex(h => h.toLowerCase().includes('grab')); 
+            const idxPPT = encabezados.findIndex(h => h.toLowerCase().includes('ppt')); // Nueva columna
 
-            rows.forEach(row => {
-                const fechaStr = row.getAttribute('data-fecha');
-                let show = true;
+            // 1. DIBUJAR ENCABEZADOS
+            let headerHTML = '<tr>';
+            encabezados.forEach(h => {
+                headerHTML += `<th>${h.replace(/"/g, '')}</th>`;
+            });
+            headerHTML += '</tr>';
+            tabla.querySelector('thead').innerHTML = headerHTML;
 
-                if (fechaStr && fechaStr.includes('/')) {
-                    const parts = fechaStr.split('/');
-                    const rowDate = new Date(parts[2], parts[1] - 1, parts[0]);
+            // 2. DIBUJAR CUERPO
+            let bodyHTML = '';
 
-                    // Filtro Próximas
-                    if (viewMode === 'proximas') {
-                        if (rowDate < today) show = false;
-                    }
+            datos.forEach(fila => {
+                if (!fila[0]) return; // Saltar filas vacías
 
-                    // Filtro Fecha Específica
-                    if (dateInput) {
-                        const [y, m, d] = dateInput.split('-');
-                        const inputDate = new Date(y, m - 1, d);
-                        // Comparación sin hora
-                        const inputDateZero = new Date(inputDate.getFullYear(), inputDate.getMonth(), inputDate.getDate());
+                const fechaTexto = fila[idxFecha] || '';
+                const estadoManual = (fila[idxEstado] || '').toLowerCase();
+                
+                // --- LÓGICA DE TIEMPO (24 HORAS DESPUÉS) ---
+                let claseYaPaso = false;
+                if (fechaTexto.includes('/')) {
+                    const partes = fechaTexto.split('/');
+                    if (partes.length === 3) {
+                        // Fecha de la clase (00:00 horas)
+                        const fechaClase = new Date(partes[2], partes[1] - 1, partes[0]);
+                        
+                        // Límite: Día de la clase + 1 día (24h) + Final del día (23:59:59)
+                        // Esto permite que el link siga vivo el día siguiente.
+                        const fechaLimite = new Date(fechaClase);
+                        fechaLimite.setDate(fechaLimite.getDate() + 1); 
+                        fechaLimite.setHours(23, 59, 59);
 
-                        if (inputDateZero.getTime() !== rowDate.getTime()) show = false;
+                        const ahora = new Date();
+                        
+                        // Si la hora actual supera el final del día siguiente -> YA PASÓ
+                        if (ahora > fechaLimite) {
+                            claseYaPaso = true;
+                        }
                     }
                 }
 
-                row.style.display = show ? '' : 'none';
-                if (show) visibleCount++;
+                // Determinación del Estado Final
+                let estadoFinal = "programada";
+                if (estadoManual.includes('feriado')) estadoFinal = "feriado";
+                else if (estadoManual.includes('cancelada')) estadoFinal = "cancelada";
+                else if (claseYaPaso || estadoManual.includes('conclui') || estadoManual.includes('finaliz')) estadoFinal = "concluida";
+
+                // Construcción de Fila
+                bodyHTML += `<tr class="live-row" data-fecha="${fechaTexto}">`;
+
+                fila.forEach((celda, index) => {
+                    let contenido = celda.replace(/"/g, '');
+                    let estiloCelda = 'text-align: center; vertical-align: middle;';
+
+                    // --- COLUMNA PPT (NUEVO BOTÓN CON ICONO) ---
+                    if (index === idxPPT) {
+                        if (celda.toLowerCase().includes('http')) {
+                            contenido = `<a href="${celda}" target="_blank" class="btn-status ppt"><i class="fa-solid fa-file-powerpoint"></i> Ver PPT</a>`;
+                        } else {
+                            contenido = `<span style="color:#ccc; font-size:12px;">-</span>`;
+                        }
+                    }
+
+                    // --- COLUMNA LINK (BLOQUEO SEGÚN TIEMPO) ---
+                    else if (index === idxLink) {
+                        if (estadoFinal === "concluida") {
+                            contenido = `<span class="btn-status red" style="opacity:0.7; cursor:not-allowed;">🔴 Finalizada</span>`;
+                        } else if (estadoFinal === "feriado" || estadoFinal === "cancelada") {
+                            contenido = `<span class="btn-status orange">📅 Sin clase</span>`;
+                        } else if (celda.includes('http')) {
+                            contenido = `<a href="${celda}" target="_blank" class="btn-status blue">🎥 Ir a clase</a>`;
+                        } else {
+                            contenido = `<span style="color:#ccc;">-</span>`;
+                        }
+                    }
+
+                    // --- COLUMNA GRABACIÓN ---
+                    else if (index === idxGrab) {
+                        if (celda.includes('http')) {
+                            contenido = `<a href="${celda}" target="_blank" class="btn-status purple">🎬 Ver Grabación</a>`;
+                        } else if (estadoFinal === "concluida") {
+                            contenido = `<span style="font-size:11px; color:#999;">Pendiente</span>`;
+                        } else { contenido = `<span style="color:#ccc; font-size:12px;">-</span>`; }
+                    }
+
+                    // --- COLUMNA ASISTENCIA ---
+                    else if (index === idxAsist) {
+                        if (celda.includes('http')) {
+                            contenido = `<a href="${celda}" target="_blank" class="btn-status green">📊 Asistencia</a>`;
+                        } else { contenido = `<span style="color:#ccc;">-</span>`; }
+                    }
+
+                    // --- COLUMNA ESTADO ---
+                    else if (index === idxEstado) {
+                         if (estadoFinal === "concluida") contenido = `<span class="badge-status success">✓ Concluida</span>`;
+                         else if (estadoFinal === "feriado") contenido = `<span class="badge-status warning">🎉 Feriado</span>`;
+                         else if (estadoFinal === "cancelada") contenido = `<span class="badge-status error">ℹ️ Cancelada</span>`;
+                         else contenido = `<span class="badge-status info">Activa</span>`;
+                    }
+                    
+                    // --- COLUMNA FECHA ---
+                    else if (index === idxFecha) {
+                        estiloCelda += 'font-weight: 700; color: var(--azul-principal);';
+                    }
+
+                    bodyHTML += `<td style="${estiloCelda}">${contenido}</td>`;
+                });
+                bodyHTML += '</tr>';
             });
 
-            const msgError = document.getElementById('no-classes-msg');
-            const tabla = document.getElementById('tabla-datos-live');
-
-            if (visibleCount === 0) {
-                msgError.style.display = 'block';
-                tabla.style.display = 'none';
-            } else {
-                msgError.style.display = 'none';
-                tabla.style.display = 'table';
-            }
-        }
-
-        function clearLiveFiltersSimple() {
-            document.getElementById('filterDateLive').value = '';
-            document.getElementById('filterProximas').value = 'proximas';
+            tabla.querySelector('tbody').innerHTML = bodyHTML;
+            loadingMsg.style.display = 'none';
+            tabla.style.display = 'table';
+            
+            // --- 2. APLICAR FILTRO AUTOMÁTICO AL CARGAR ---
             filterLiveClassesSimple();
-        }
 
-        document.addEventListener('DOMContentLoaded', cargarDatosLiveRobust);
-    </script>
+        } catch (error) {
+            console.error(error);
+            loadingMsg.innerHTML = `<div style="color:red; padding:20px;">Error al cargar datos.</div>`;
+        }
+    }
+
+    // --- FUNCIÓN DE FILTRADO ---
+    function filterLiveClassesSimple() {
+        const dateInput = document.getElementById('filterDateLive').value;
+        const viewMode = document.getElementById('filterProximas').value;
+        const rows = document.querySelectorAll('.live-row');
+        let visibleCount = 0;
+
+        // Obtenemos fecha de hoy a las 00:00:00 para comparar días completos
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        rows.forEach(row => {
+            const fechaStr = row.getAttribute('data-fecha');
+            let show = true;
+
+            if (fechaStr && fechaStr.includes('/')) {
+                const parts = fechaStr.split('/');
+                // Fecha de la fila (00:00:00)
+                const rowDate = new Date(parts[2], partes[1] - 1, partes[0]);
+
+                // Lógica del filtro "Próximas" (Muestra hoy y futuro)
+                if (viewMode === 'proximas') {
+                    if (rowDate < today) show = false; 
+                }
+
+                // Lógica del filtro de Fecha específica
+                if (dateInput) {
+                    const [y, m, d] = dateInput.split('-');
+                    const inputDate = new Date(y, m - 1, d);
+                    // Comparar tiempos (ambos están a las 00:00:00)
+                    const inputDateZero = new Date(inputDate.getFullYear(), inputDate.getMonth(), inputDate.getDate());
+                    
+                    if (inputDateZero.getTime() !== rowDate.getTime()) show = false;
+                }
+            }
+
+            row.style.display = show ? '' : 'none';
+            if (show) visibleCount++;
+        });
+
+        const msgError = document.getElementById('no-classes-msg');
+        const tabla = document.getElementById('tabla-datos-live');
+        
+        if (visibleCount === 0) {
+            msgError.style.display = 'block';
+            tabla.style.display = 'none';
+        } else {
+            msgError.style.display = 'none';
+            tabla.style.display = 'table';
+        }
+    }
+
+    function clearLiveFiltersSimple() {
+        document.getElementById('filterDateLive').value = '';
+        // Resetear a "Próximas" por defecto al limpiar
+        document.getElementById('filterProximas').value = 'proximas'; 
+        filterLiveClassesSimple();
+    }
+    
+    // Iniciar carga al renderizar
+    document.addEventListener('DOMContentLoaded', cargarDatosLiveRobust);
+</script>
 
     <style>
         /* Clases utilitarias para botones de la tabla */
